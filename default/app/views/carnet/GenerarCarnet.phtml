@@ -1,11 +1,31 @@
 <?php
     Load::lib('fpdf');
  
-    $pdf=new FPDF();
+    $pdf=new FPDF('P','mm');
     $pdf->AliasNbPages();
     $pdf->AddPage();
-    $pdf->SetFont('Arial','B',15);
-    $pdf->SetXY(0,20);
-    $pdf->Cell(209,18,$NomCar,0,0,'C');
+    $pdf->Image('img\FrenteCarnet.jpg',0,0,85,55,'JPG');
+    $pdf->SetFont('Arial','',5);
+    $pdf->SetXY(26, 19);    //apellido
+    $pdf->Cell(15, 10, $ApeCar, 0, 0, 'L');
+    $pdf->SetXY(26,25);     //nombre
+    $pdf->Cell(5,10,$NomCar,0,0,'L');
+    $pdf->SetXY(26, 30.5);    //dni
+    $pdf->Cell(15, 10, $DniCar, 0, 0,'L');
+    $pdf->SetXY(26, 36);    //nac
+    $pdf->Cell(15, 10, $NacCar,0, 0, 'L');
+    $pdf->SetXY(45.5, 36);    //sexo
+    $pdf->Cell(15, 10, $SexoCar, 0,0,'L');
+    $pdf->SetXY(26, 42);    //fecha emision
+    $pdf->Cell(15, 10, $FecEmiCar,0, 0, 'L');
+    $pdf->SetXY(45.5, 42);    //fecha vencimiento
+    $pdf->Cell(15, 10, $FecVenCar, 0, 0, 'L');
+    $pdf->SetXY(1.5, 34);    //Codigo Profesional
+    $pdf->Cell(15,10, $CodProfCar, 0,0, 'L');
+    $pdf->SetXY(1.5, 39.5);    //Profesion
+    $pdf->Cell(15, 10, $ProfCar,0, 0, 'L');
+    $pdf->SetFont('Helvetica','',9);
+    $pdf->SetXY(3,2);    //Nro de Matricula
+    $pdf->Cell(15, 10, $NumMatCar,0, 0, 'L');
     $pdf->Output();
 
