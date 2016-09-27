@@ -1,0 +1,19 @@
+<?php echo Form::open('', 'Post', 'class="form-horizontal"');?>
+<div class="form-group">
+    <div class="col-md-4">
+        <label>Nombre</label>
+        <?php echo Form::text('persona.Nombre','class="form-control"')?>
+    </div>
+    <div class="col-md-4">
+        <label>Apellido</label>
+        <?php echo Form::text('persona.Apellido', 'class="form-control"')?>
+    </div>
+    <div class="col-md-4">
+        <label>Fecha de nacimiento</label>
+        <?php echo Form::date('persona.FechaNac','class="form-control"')?>
+    </div>
+</div>
+
+
+<?php echo Form::close()?>
+
