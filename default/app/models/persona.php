@@ -7,5 +7,11 @@ class persona extends ActiveRecord
       $pers = new persona();
       return ($pers->find_first("order: id desc"));
     }
+    public function GuardarDoc($tipo,$nro,$idpersona) //Guarda el Dni del matriculado
+    {
+        Load::model('documento');
+        $doc = new documento();
+        $doc->Guardar($tipo,$nro,$idpersona);
+    }
     
 }

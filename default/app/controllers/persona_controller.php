@@ -1,6 +1,6 @@
 <?php
 
-Load::model('persona');
+Load::models('persona','documento');
 class PersonaController extends AppController
 {
     
@@ -20,10 +20,14 @@ class PersonaController extends AppController
              */
             $pesaux = new persona();
             $persona = new persona(Input::post('persona'));
-            $persona->id = $pesaux->find_first("order: id desc")->id +1;
+            $docum = new documento(Input::post('documento'));
+            
+            //$persona->id = $pesaux->find_first("order: id desc")->id +1;
             //En caso que falle la operación de guardar
             if($persona->create()){
-                Flash::valid('Operación exitosa');
+                
+                $persona->GuardarDoc($docum->tipodoc, $docum->nrodoc,$pesaux->find_first("order: id desc")->id );
+                //Flash::valid($pesaux->find_first("order: id desc")->id);
                 //Eliminamos el POST, si no queremos que se vean en el form
                 Input::delete();
                 return;               

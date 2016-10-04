@@ -1,97 +1,141 @@
-<?php echo Form::open('', 'POST', 'class="form-horizontal"');?>
-<?php View::content()?>
-<div class="bodform">
-    <div class="form-group">
-        <div class="col-md-4">
-            <label>Nombre</label>
-            <?php echo Form::text('persona.Nombre','class="form-control" placeholder="Ingrese el Nombre" onkeypress="return valideKey2(event)" style="text-transform:uppercase"')?>
-        </div>
-        <div class="col-md-4">
-            <label>Apellido</label>
-            <?php echo Form::text('persona.Apellido', 'class="form-control" placeholder="Ingrese el Apellido" onkeypress="return valideKey2(event)" style="text-transform:uppercase"')?>
-        </div>
-        <div class="col-md-4">
-            <label>Fecha de nacimiento</label>
-            <?php echo Form::date('persona.FechaNac','class="form-control"')?>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-2">
-            <?php $tipo = array(0=>'DNI',1=>'L.E.',2=>'L.C.');?>
-            <label>Tipo de documento</label>
-            <?php echo Form::select('documento.tipodoc',$tipo,'class="form-control"');?>
-        </div>
-        <div class="col-md-4">
-            <label>Nro de DNI</label>
-            <?php echo Form::text('documento.nrodoc','class="form-control" placeholder="Ingrese el Nro de Documento" maxlength="8" onkeypress="return valideKey(event)"')?>
-        </div>
-         <div class="col-md-2">
-            <label>Sexo</label>
-            <div class="radio">
-                <label><?php echo Form::radio('persona.Sexo', 'M','onchange="return CuilH(documento_nrodoc,persona_CuilCuit)"')?>Masculino </label>
+
+  <div class="panel-group" id="accordion">
+      <div class="panel panel-default"> 
+          <div class="panel-heading">
+              <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                  DATOS PERSONALES
+              </h4>
+          </div>  
+          <div id="collapse1" class="panel-collapse">
+            <div class="panel-body"> 
+                
+            <?php echo Form::open('', 'POST', 'class="form-horizontal"');?>
+            <?php View::content()?>
+            <div class="bodform">    
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label>Nombre</label>
+                    <?php echo Form::text('persona.Nombre','class="form-control" placeholder="Ingrese el Nombre" onkeypress="return valideKey2(event)" style="text-transform:uppercase"')?>
+                </div>
+                <div class="col-md-4">
+                    <label>Apellido</label>
+                    <?php echo Form::text('persona.Apellido', 'class="form-control" placeholder="Ingrese el Apellido" onkeypress="return valideKey2(event)" style="text-transform:uppercase"')?>
+                </div>
+                <div class="col-md-4">
+                    <label>Fecha de nacimiento</label>
+                    <?php echo Form::date('persona.FechaNac','class="form-control"')?>
+                </div>
             </div>
-        </div>
-        <div class="col-md-2">
-            <label> </label>
-            <div class="radio">
-                <label><?php echo Form::radio('persona.Sexo', 'F','onchange="return CuilM(documento_nrodoc,persona_CuilCuit)"')?> Femenino</label>
+            <div class="form-group">
+                <div class="col-md-2">
+                    <?php $tipo = array(0=>'DNI',1=>'L.E.',2=>'L.C.');?>
+                    <label>Tipo de documento</label>
+                    <?php echo Form::select('documento.tipodoc',$tipo,'class="form-control"');?>
+                </div>
+                <div class="col-md-4">
+                    <label>Nro de DNI</label>
+                    <?php echo Form::text('documento.nrodoc','class="form-control" placeholder="Ingrese el Nro de Documento" maxlength="8" onkeypress="return valideKey(event)"')?>
+                </div>
+                 <div class="col-md-2">
+                    <label>Sexo</label>
+                    <div class="radio">
+                        <label><?php echo Form::radio('persona.Sexo', 'M','onchange="return CuilH(documento_nrodoc,persona_CuilCuit)"')?>Masculino </label>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label> </label>
+                    <div class="radio">
+                        <label><?php echo Form::radio('persona.Sexo', 'F','onchange="return CuilM(documento_nrodoc,persona_CuilCuit)"')?> Femenino</label>
+                    </div>
+                </div>
+
             </div>
-        </div>
-       
-    </div>
-    <div class="form-group">
-        <div class="col-md-4">
-            <label>Cuil</label>
-            <?php echo Form::text('persona.CuilCuit','class="form-control" placeholder="Ingrese DNI y seleccione el Sexo" readonly');?>
-        </div>
-         <div class="col-md-4">
-            <label>Pais de Nacimiento</label>
-            <?php echo Form::dbSelect('persona.PaisNac', 'Pais', array('pais_nacionalidad','paisord'), '--Seleccionar Pais de Nacimiento--', 'class="form-control"')?>
-        </div>
-        <div class="col-md-4">
-            <label>Nacionalidad</label>
-            <?php echo Form::dbSelect('persona.Nacionalidad', 'Nacionalidad', array('pais_nacionalidad','nacord'), '--Seleccionar Nacionalidad--', 'class="form-control"')?>
-        </div>
-    </div>
-    <div class="form-group">
-         <div class="col-md-4">
-            <label>Ciudad de nacimiento</label>
-            <?php echo Form::text('persona.CiudadNac','class="form-control" placeholder="Ciudad de nacimiento"')?>
-        </div>
-        <div class="col-md-4">
-            <label>Domicilio (calle)</label>
-            <?php echo Form::text('persona.DomCalle','class="form-control" placeholder="Nombre de la calle" style="text-transform:uppercase"');?>
-        </div>
-        <div class="col-md-1">
-            <label>Nro</label>
-            <?php echo Form::text('persona.DomNro','class="form-control" placeholder="Numero" onkeypress="return valideKey(event)"')?>
-        </div>
-        <div class="col-md-1">
-            <label>Piso</label>
-            <?php echo Form::text('persona.DomPiso','class="form-control" placeholder="Piso" onkeypress="return valideKey(event)"')?>
-        </div>
-        <div class="col-md-2">
-            <label>Dpto</label>
-            <?php echo Form::text('persona.DomDepto','class="form-control" placeholder="Departamento"');?>
-        </div>  
-    </div>
-    <div class="form-group">
-        <div class="col-md-4">
-            <label>Barrio</label>
-            <?php echo Form::text('persona.Barrio','class="form-control" placeholder="Ingrese el Barrio" style="text-transform:uppercase"');?>
-        </div>
-        <div class ="col-md-4">
-            <label>Mail</label>
-            <?php echo Form::text('persona.Mail','class="form-control" placeholder="E-mail" onblur="return validarEmail2(this.value,helpBlock)" style="text-transform:lowercase"');?>
-            <span id="errmail"></span>
-            <span id="helpBlock" class="help-block"></span>
-        </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-12">
-        <button type="submit" class="btn btn-info pull-right">Submit</button>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label>Cuil</label>
+                    <?php echo Form::text('persona.CuilCuit','class="form-control" placeholder="Ingrese DNI y seleccione el Sexo" readonly');?>
+                </div>
+                 <div class="col-md-4">
+                    <label>Pais de Nacimiento</label>
+                    <?php echo Form::dbSelect('persona.PaisNac', 'Pais', array('pais_nacionalidad','paisord'), '--Seleccionar Pais de Nacimiento--', 'class="form-control"')?>
+                </div>
+                <div class="col-md-4">
+                    <label>Nacionalidad</label>
+                    <?php echo Form::dbSelect('persona.Nacionalidad', 'Nacionalidad', array('pais_nacionalidad','nacord'), '--Seleccionar Nacionalidad--', 'class="form-control"')?>
+                </div>
+            </div>
+            <div class="form-group">
+                 <div class="col-md-4">
+                    <label>Ciudad de nacimiento</label>
+                    <?php echo Form::text('persona.CiudadNac','class="form-control" placeholder="Ciudad de nacimiento"')?>
+                </div>
+                <div class="col-md-4">
+                    <label>Domicilio (calle)</label>
+                    <?php echo Form::text('persona.DomCalle','class="form-control" placeholder="Nombre de la calle" style="text-transform:uppercase"');?>
+                </div>
+                <div class="col-md-1">
+                    <label>Nro</label>
+                    <?php echo Form::text('persona.DomNro','class="form-control" placeholder="Numero" onkeypress="return valideKey(event)"')?>
+                </div>
+                <div class="col-md-1">
+                    <label>Piso</label>
+                    <?php echo Form::text('persona.DomPiso','class="form-control" placeholder="Piso" onkeypress="return valideKey(event)"')?>
+                </div>
+                <div class="col-md-2">
+                    <label>Dpto</label>
+                    <?php echo Form::text('persona.DomDepto','class="form-control" placeholder="Departamento"');?>
+                </div>  
+            </div>
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label>Barrio</label>
+                    <?php echo Form::text('persona.Barrio','class="form-control" placeholder="Ingrese el Barrio" style="text-transform:uppercase"');?>
+                </div>
+                <div class ="col-md-4">
+                    <label>Mail</label>
+                    <?php echo Form::text('persona.Mail','class="form-control" placeholder="E-mail" onblur="return validarEmail2(this.value,helpBlock)" style="text-transform:lowercase"');?>
+                    <span id="errmail"></span>
+                    <span id="helpBlock" class="help-block"></span>
+                </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-info pull-right">Submit</button>
+              </div>
+            </div>
+          
+            </div>   
+            <?php echo Form::close()?>    
+          </div>  
       </div>
+  </div> 
+  <div class="panel panel-default" disabled="true"> 
+      <div class="panel-heading">
+          <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+              DATOS PROFECIONALES
+          </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+          <div class="panel-body">
+              
+              
+          </div>
+      </div>
+  </div>    
+   <div class="panel panel-default"> 
+      <div class="panel-heading">
+          <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+              DATOS DE MATRICULA
+          </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+          <div class="panel-body">
+              
+              
+          </div>
+      </div>
+  </div>        
 </div>
 
-<?php echo Form::close()?>
+
 
