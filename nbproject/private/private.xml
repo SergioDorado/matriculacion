@@ -10,6 +10,7 @@
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/persona.php</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/_shared/templates/MasterPage.phtml</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/controllers/persona_controller.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/documento.php</file>
         </group>
     </open-files>
 </project-private>

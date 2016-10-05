@@ -67,7 +67,8 @@
             <div class="form-group">
                  <div class="col-md-4">
                     <label>Ciudad de nacimiento</label>
-                    <?php echo Form::text('persona.CiudadNac','class="form-control" placeholder="Ciudad de nacimiento"')?>
+                    <?php// echo Form::text('persona.CiudadNac','class="form-control" placeholder="Ciudad de nacimiento"')?>
+                    <?php echo Form::dbSelect('persona.CuidadNac','Localidad',array('ciudad_nacimiento','ciudadord'),'--Seleccionar Ciudad de Nacimiento--','class="form-control"')?>
                 </div>
                 <div class="col-md-4">
                     <label>Domicilio (calle)</label>
@@ -97,12 +98,83 @@
                     <span id="errmail"></span>
                     <span id="helpBlock" class="help-block"></span>
                 </div>
+                <div class="col-md-4">
+                        <label> </label> 
+                        <div class="check">
+                            <label>Tiene Telefono <?php echo Form::check('telefono.TieneTel','','',false )?> </label> 
+                        </div>                  
+                </div>
             </div>
+             
+            <div class="form-group">
+                <?php $tipotel = array('CELULAR'=>'CELULAR','TELEFONO/FAX'=>'TELEFONO/FAX','PARTICULAR'=>'PARTICULAR','PARTICULAR/VECINO'=>'PARTICULAR/VECINO','LABORAL'=>'LABORAL','OTROS/DESCONOCIDO'=>'OTROS/DESCONOCIDO')?>
+                <div class="col-md-2">
+                    <label>Seleccione tipo </label>
+                    <?php echo Form::select('telefono.Tipo1', $tipotel, 'class="form-control"')?>
+                </div>  
+                <div class="col-md-2">
+                    <label> Telefono 1</label>
+                    <?php echo Form::text('telefono.NumTel1','class="form-control placeholder="Ingrese Telefono"')?>
+                </div>
+                <div class="col-md-2">
+                    <label> </label>
+                    <div class="check">
+                        <label><?php echo Form::check('agregar1','','',false)?> Agregar otro telefono</label>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    <label>Seleccione tipo </label>
+                    <?php echo Form::select('telefono.Tipo2', $tipotel, 'class="form-control"')?>
+                </div>  
+                <div class="col-md-2">
+                    <label> Telefono 2</label>
+                    <?php echo Form::text('telefono.NumTel2','class="form-control placeholder="Ingrese Telefono"')?>
+                </div>
+                <div class="col-md-2">
+                    <label> </label>
+                    <div class="check">
+                        <label><?php echo Form::check('agregar2','','',false)?> Agregar otro telefono</label>
+                    </div>
+                </div>
+            </div>    
+            <div class="form-gorup">
+                <div class="col-md-2">
+                    <label>Seleccione tipo </label>
+                    <?php echo Form::select('telefono.Tipo3', $tipotel, 'class="form-control"')?>
+                </div>  
+                <div class="col-md-2">
+                    <label> Telefono 3</label>
+                    <?php echo Form::text('telefono.NumTel3','class="form-control placeholder="Ingrese Telefono"')?>
+                </div>
+                <div class="col-md-2">
+                    <label> </label>
+                    <div class="check">
+                        <label><?php echo Form::check('agregar3','','',false)?> Agregar otro telefono</label>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    <label>Seleccione tipo </label>
+                    <?php echo Form::select('telefono.Tipo4', $tipotel, 'class="form-control"')?>
+                </div>  
+                <div class="col-md-2">
+                    <label> Telefono 4</label>
+                    <?php echo Form::text('telefono.NumTel4','class="form-control placeholder="Ingrese Telefono"')?>
+                </div>
+                <div class="col-md-2">
+                    <label> </label>
+                    <div class="check">
+                        <label><?php echo Form::check('agregar4','','',false)?> Agregar otro telefono</label>
+                    </div>
+                </div>
+            </div>    
             <div class="form-group">
               <div class="col-md-12">
                 <button type="submit" class="btn btn-info pull-right">Submit</button>
               </div>
             </div>
+   
           
             </div>   
             <?php echo Form::close()?>    
