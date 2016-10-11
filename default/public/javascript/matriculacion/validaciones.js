@@ -208,3 +208,84 @@ function CuilM(dni,cuil1) //calcula el cuil Mujeres
 	}
 		
 }
+
+function HabilitarTel1(check,check1,check2,check3,div1,div2,div3,div4)// habiilita el primer campo de telefono
+{
+    var chk = document.getElementById(""+check+"");
+	chk1 = document.getElementById(''+check1.id+'');
+	chk2 = document.getElementById(''+check2.id+'');
+	chk3 = document.getElementById(''+check3.id+'');
+    div = document.getElementById(''+div1.id+'');
+    divtel2 = document.getElementById(''+div2.id+'');
+    divtel3 = document.getElementById(''+div3.id+'');
+    divtel4 = document.getElementById(''+div4.id+'');
+    if (chk.checked)
+    {
+        div.style.display = 'block'; //muestra el div que contiene los campos para el telefono 1
+    }
+    else
+    {	//pone los check del telefono 1 ,2 ,3  en falso y oculta los divs que contiene los campos de todos los telefonos		
+		chk1.checked = false;
+		chk2.checked = false;
+		chk3.checked = false;
+        div.style.display = 'none';
+        divtel2.style.display = 'none';
+        divtel3.style.display = 'none';
+        divtel4.style.display = 'none';
+    }
+    
+}
+
+function HabilitarTel2(check,check2,check3,div2,div3,div4) //muestra los campos del telefono 2
+{
+	var chk = document.getElementById(""+check+"");
+	chk2 = document.getElementById(''+check2.id+'');
+	chk3 = document.getElementById(''+check3.id+'');
+    divtel2 = document.getElementById(''+div2.id+'');
+    divtel3 = document.getElementById(''+div3.id+'');
+    divtel4 = document.getElementById(''+div4.id+'');
+	if (chk.checked)
+    {
+        divtel2.style.display = 'block';  //muestra el div que contiene los campos para el telefono 2
+    }
+    else
+    {	//pone los check del telefono 2 ,3  en falso y oculta los divs que contienen los campos del telefono 2 , 3 y 4	
+		chk2.checked = false;	
+		chk3.checked = false;
+        divtel2.style.display = 'none';
+        divtel3.style.display = 'none';
+        divtel4.style.display = 'none';
+    }
+}
+
+function HabilitarTel3(check,check3,div3,div4) //muestra los campos del telefono 3
+{
+	var chk = document.getElementById(""+check+"");
+	chk3 = document.getElementById(''+check3.id+'');
+    divtel3 = document.getElementById(''+div3.id+'');
+    divtel4 = document.getElementById(''+div4.id+'');
+	if (chk.checked)
+    {
+        divtel3.style.display = 'block';  //muestra el div que contiene los campos para el telefono 3
+    }
+    else
+    {	//pone el check del telefono 3 en falso y oculta los div que contienen los campos del telefono 3 y 4
+		chk3.checked = false;
+        divtel3.style.display = 'none';
+        divtel4.style.display = 'none';
+    }
+}
+
+function HabilitarTel4(check,div4) //,uestra los campos del telefono 4
+{
+	var chk = document.getElementById(""+check+"");
+    divtel4 = document.getElementById(''+div4.id+'');
+	if (chk.checked)
+    {
+        divtel4.style.display = 'block'; //muestra el div que contien los campos para el telefono 4
+    }
+    else
+    {
+        divtel4.style.display = 'none'; //oculta el div que contiene los campos del telefono 4
+    }
+}
