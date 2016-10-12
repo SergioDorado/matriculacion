@@ -1,6 +1,6 @@
 <?php
 
-Load::models('persona','documento');
+Load::models('persona','documento','telefono');
 class PersonaController extends AppController
 {
     
@@ -21,15 +21,16 @@ class PersonaController extends AppController
             $pesaux = new persona();
             $persona = new persona(Input::post('persona'));
             $docum = new documento(Input::post('documento'));
+            $telef = new telefono(Input::post('telefono'));
             
-            //$persona->id = $pesaux->find_first("order: id desc")->id +1;
             //En caso que falle la operación de guardar
             if($persona->create()){
-                
-                $persona->GuardarDoc($docum->tipodoc, $docum->nrodoc,$pesaux->find_first("order: id desc")->id );
-                //Flash::valid($pesaux->find_first("order: id desc")->id);
+                $idpersona =  $pesaux->find_first("order: id desc")->id;
+                $persona->GuardarDoc($docum->tipodoc, $docum->nrodoc,$idpersona );
+                $persona->GuardarTels($idpersona, $telef->TieneTel, $telef->Tipo1, $telef->NumTel1, $telef->Tipo2, $telef->NumTel2, $telef->Tipo3, $telef->NumTel3, $telef->Tipo4, $telef->NumTel4);
+                Flash::valid($telef->TieneTel);
                 //Eliminamos el POST, si no queremos que se vean en el form
-                Input::delete();
+                //Input::delete();
                 return;               
             }else{
                 Flash::error('Falló Operación');
