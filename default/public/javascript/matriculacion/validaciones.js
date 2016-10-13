@@ -1,3 +1,9 @@
+/***********************************************************
+*														   *
+*       VALIDACIONES DE MATRICULACION                      *
+*														   *
+***********************************************************/
+
 function CuilH(dni,cuil1)//calcula el cuil de Hombres
 {
     if(documento_nrodoc.value.length == 8)
@@ -209,7 +215,7 @@ function CuilM(dni,cuil1) //calcula el cuil Mujeres
 		
 }
 
-function HabilitarTel1(check,check1,check2,check3,div1,div2,div3,div4)// habiilita el primer campo de telefono
+function HabilitarTel1(check,check1,check2,check3,div1,div2,div3,div4)// habiilita el primer campo de telefono en la vista persona/create
 {
     var chk = document.getElementById(""+check+"");
 	chk1 = document.getElementById(''+check1.id+'');
@@ -236,7 +242,7 @@ function HabilitarTel1(check,check1,check2,check3,div1,div2,div3,div4)// habiili
     
 }
 
-function HabilitarTel2(check,check2,check3,div2,div3,div4) //muestra los campos del telefono 2
+function HabilitarTel2(check,check2,check3,div2,div3,div4) //muestra los campos del telefono 2 en la vista persona/create
 {
 	var chk = document.getElementById(""+check+"");
 	chk2 = document.getElementById(''+check2.id+'');
@@ -258,7 +264,7 @@ function HabilitarTel2(check,check2,check3,div2,div3,div4) //muestra los campos 
     }
 }
 
-function HabilitarTel3(check,check3,div3,div4) //muestra los campos del telefono 3
+function HabilitarTel3(check,check3,div3,div4) //muestra los campos del telefono 3 en la vista persona/create
 {
 	var chk = document.getElementById(""+check+"");
 	chk3 = document.getElementById(''+check3.id+'');
@@ -276,7 +282,7 @@ function HabilitarTel3(check,check3,div3,div4) //muestra los campos del telefono
     }
 }
 
-function HabilitarTel4(check,div4) //,uestra los campos del telefono 4
+function HabilitarTel4(check,div4) //,uestra los campos del telefono 4 en la vista persona/create
 {
 	var chk = document.getElementById(""+check+"");
     divtel4 = document.getElementById(''+div4.id+'');
@@ -288,4 +294,19 @@ function HabilitarTel4(check,div4) //,uestra los campos del telefono 4
     {
         divtel4.style.display = 'none'; //oculta el div que contiene los campos del telefono 4
     }
+}
+
+function NoReval(iddiv,iddiv2){// si no posee revalida oculta el campo de revalida
+    div = document.getElementById(""+iddiv.id+"");
+	div2 = document.getElementById(""+iddiv2.id+"");
+    div.style.display= 'none';
+	div2.style.display='none';
+   
+}
+
+function SiReval(iddiv,iddiv2){ // si posee revalida muestra el campo de revalida
+    div = document.getElementById(''+iddiv.id+'');
+	div2 = document.getElementById(""+iddiv2.id+"");
+    div.style.display = 'block';
+	div2.style.display='block';
 }

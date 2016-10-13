@@ -1,6 +1,6 @@
 <?php
 
-Load::models('persona','documento','telefono');
+Load::models('persona','documento','telefono','formacion');
 class PersonaController extends AppController
 {
     
@@ -37,5 +37,18 @@ class PersonaController extends AppController
             }
         }
     }
+    
+    public function formacion()
+    {
+        if(Input::hasPost('formacion')){
+            $forma = new Formacion(Input::post('formacion'));
+            $persona = new persona();
+            $persona->GuardarForma(111/*$forma->TipoFormacion*/,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
+                    $forma->FechaRevalida, $forma->InstitucionRevalida, $forma->ProfesionReferencia, $forma->persona_id,
+                    $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
+        }else{
+            //Flash::error('Falló Operación');
+        }
+    }        
     
 }
