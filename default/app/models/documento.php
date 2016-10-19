@@ -7,7 +7,6 @@ class documento extends ActiveRecord
         $parametros = array('tipodoc'=>$tipo, 'nrodoc'=>$nro,'persona_id'=>$idpersona);
         $doc= new documento($parametros);
         $doc->save();
-        echo $doc->nrodoc;
     }
     
 }

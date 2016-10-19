@@ -28,7 +28,7 @@ class PersonaController extends AppController
                 $idpersona =  $pesaux->find_first("order: id desc")->id;
                 $persona->GuardarDoc($docum->tipodoc, $docum->nrodoc,$idpersona );
                 $persona->GuardarTels($idpersona, $telef->TieneTel, $telef->Tipo1, $telef->NumTel1, $telef->Tipo2, $telef->NumTel2, $telef->Tipo3, $telef->NumTel3, $telef->Tipo4, $telef->NumTel4);
-                Flash::valid($telef->TieneTel);
+                //Flash::valid();
                 //Eliminamos el POST, si no queremos que se vean en el form
                 //Input::delete();
                 return;               
@@ -40,14 +40,16 @@ class PersonaController extends AppController
     
     public function formacion()
     {
+        View::select('create');
         if(Input::hasPost('formacion')){
             $forma = new Formacion(Input::post('formacion'));
             $persona = new persona();
-            $persona->GuardarForma(111/*$forma->TipoFormacion*/,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
+            $persona->GuardarForma(113/*$forma->TipoFormacion*/,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
                     $forma->FechaRevalida, $forma->InstitucionRevalida, $forma->ProfesionReferencia, $forma->persona_id,
                     $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
+            //Flash::valid('Guardando datos formacion...');
         }else{
-            //Flash::error('Falló Operación');
+            Flash::error('Falló Operación');
         }
     }        
     

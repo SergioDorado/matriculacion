@@ -10,7 +10,6 @@
             <div class="panel-body"> 
             
             <?php echo Form::openMultipart('persona/create', 'class="form-horizontal"') ?>     
-            <?php// echo Form::open('', 'POST', 'class="form-horizontal"');?>
             <?php View::content()?>
             <div class="bodform">    
             <div class="form-group">
@@ -152,7 +151,7 @@
                 </div>
             </div>   
                 
-             <div class="form-gorup">
+             <div class="form-group">
                 <div id="tel3">
                     <div class="col-md-2">
                         <label>Seleccione tipo </label>
@@ -191,55 +190,63 @@
             </div>
    
           
-            </div>   
-            <?php //echo Form::close()?>    
+            </div>  
+            
+            <?php echo Form::close()?>    
           </div>  
       </div>
   </div> 
   <div class="panel panel-default" disabled="true"> 
       <div class="panel-heading">
           <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-              DATOS PROFECIONALES
+              DATOS PROFESIONALES
           </h4>
       </div>
       <div id="collapse2" class="panel-collapse collapse">
           <div class="panel-body">
              <?php echo Form::openMultipart('persona/formacion', 'class="form-horizontal"') ?> 
-             <?php// echo Form::open('', 'POST', 'class="form-horizontal"')?>
-              <div clas="bodform">
-
+              <?php echo View::content();?>
+              <div class="bodform">
                   <div class="form-group">
                       <div class="col-md-4">
                           <?php $formaciones = array('UNIVERSITARIO'=>'UNIVERSITARIO','TECNICO'=>'TECNICO','AUXILIAR'=>'AUXILIAR')?>
                           <label>Tipo de formacion</label>
                           <?php echo Form::select('formacion.TipoFormacion', $formaciones,'class="form-control"')?>
                       </div>
-                      <div class='col-md-4'>
+                      <div class="col-md-4">
                           <label>Profesión</label>
                           <?php echo Form::text('formacion.Profesion', 'class="form-control" placeholder="Ingrese la Profesion"')?>
                       </div>
-                      <div class='col-md-4'>
+                      <div class="col-md-4">
                           <label>Título</label>
                           <?php echo Form::text('formacion.Titulo', 'class="form-control" placeholder="Ingrese el Título"')?>
                       </div>
                   </div>
                   
                   <div class="form-group">
-                      <div class='col-md-4'>
+                      <div class="col-md-4">
                           <label>Fecha de Egreso</label>
                           <?php echo Form::date('formacion.FechaEgreso','class="form-control"')?>
                       </div>
                       <div class="col-md-4">
-                          <label>Profecion de Referencia</label>
-                          <?php echo Form::text('formacion.ProfesionReferencia', 'class="form-control" placeholder="Ingrese Profesion de referencia"')?>
+                          <label>Profesión de Referencia</label>
+                          <?php echo Form::dbSelect('formacion.ProfesionalReferencia', 'prf_refe', array('profesion','proforde'), '--Seleccionar Profesion de Referencia--','class="form-control"')?>
                       </div>
                       <div class="col-md-4">
-                          <label>Profesional Asociado</label>
-                          <?php echo Form::text('formacion.ProfesionalAsociado','class="form-control" placeholder="Ingrese Profecional Asociado"')?>
+                          <label>Institución Formadora</label>
+                          <?php echo Form::dbSelect('formacion.instform','nombre',array('inst_form','instorde'),'--Seleccione Institucion Formadora--','class="form-control"')?>
                       </div>
                   </div>
                   
-                  <div class="form-group">
+                   <div class="form-group">
+                       <div class="col-md-4">
+                          <label>Profesional Asociado</label>
+                          <?php echo Form::text('formacion.ProfesionalAsociado','class="form-control" placeholder="Ingrese Profecional Asociado"')?>
+                      </div>
+                       <div class="col-md-4">
+                           <label>Organismo de registro</label>
+                           <?php echo Form::text('formacion.OrganismoRegistro','class="form-control" placeholder="Ingrese Organismo de Registro"')?>
+                       </div>
                       <div class="col-md-2">
                           <label>Revalida</label>
                           <div class="radio">
@@ -252,21 +259,28 @@
                               <label><?php echo Form::radio('formacion.Revalida', 'NO', 'onclick="return NoReval(FecRev,InstRev)"', True)?> NO</label>
                           </div>
                       </div>
+                  </div> 
+                  
+                   <div class="form-group">
                       <div id="FecRev" class='col-md-4'>
                           <label>Fecha de Reválida</label>
                           <?php echo Form::date('formacion.FechaRevalida', 'class="form-control"')?>
                       </div>
-                      <div id="InstRev" class="col-md-4">
-                          <label>Inst. Revalización</label>
-                          <?php echo Form::text('formacion.InstitucionRevalida', 'class="form-control"')?>
-                      </div>
-                  </div>                  
-
-                <div class="form-group">
-                  <div class="col-md-12">
-                    <button type="submit" class="btn btn-info pull-right">Submit</button>
+                       <div id="InstRev" class="col-md-4">
+                           <label>Inst. Revalización</label>
+                           <?php echo Form::dbSelect('formacion.instform','nombre',array('inst_form','instorde'),'--Seleccione Institucion Formadora--','class="form-control"')?>
+                       </div>
                   </div>
-                </div>
+                  
+                  <div class="form-group">
+                      <div class="col-md-12">
+                        <button type="submit" class="btn btn-info pull-right">Submit</button>
+                      </div>
+                  </div>      
+                  
+
+
+               
                   
               </div>
              <?php echo Form::close()?> 
