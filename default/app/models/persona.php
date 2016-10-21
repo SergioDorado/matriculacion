@@ -22,10 +22,17 @@ class persona extends ActiveRecord
         
     }
     
-    public function GuardarForma($tipo,$prof,$titulo,$fecheg,$rev,$fecrev,$instrev,$profref,$idpers,$profasoc,$orgreg)
+    public function GuardarForma($tipo,$prof,$titulo,$fecheg,$rev,$fecrev,$instrev,$profref,$instiform,$idpers,$profasoc,$orgreg)
     {
         Load::model('formacion');
         $form = new Formacion();
-        $form->Guardar($tipo, $prof, $titulo, $fecheg, $rev, $fecrev, $instrev, $profref, $idpers, $profasoc, $orgreg);
+        $form->Guardar($tipo, $prof, $titulo, $fecheg, $rev, $fecrev, $instrev, $profref,$instiform, $idpers, $profasoc, $orgreg);
+    }
+    
+    public function GuardarMatricula($nromat,$fecha,$situacion,$prov,$prof,$personaid,$codprof)
+    {
+        Load::model('matriculacion');
+        $matric = new Matriculacion();
+        $matric->Guardar($nromat, $fecha, $situacion, $prov, $prof, $personaid, $codprof);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-Load::models('persona','documento','telefono','formacion');
+Load::models('persona','documento','telefono','formacion','matriculacion');
 class PersonaController extends AppController
 {
     
@@ -44,13 +44,25 @@ class PersonaController extends AppController
         if(Input::hasPost('formacion')){
             $forma = new Formacion(Input::post('formacion'));
             $persona = new persona();
-            $persona->GuardarForma(113/*$forma->TipoFormacion*/,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
-                    $forma->FechaRevalida, $forma->InstitucionRevalida, $forma->ProfesionReferencia, $forma->persona_id,
+            $persona->GuardarForma($forma->TipoFormacion,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
+                    $forma->FechaRevalida, $forma->InstitucionRevalida, $forma->ProfesionReferencia,$forma->instform, $forma->persona_id,
                     $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
-            //Flash::valid('Guardando datos formacion...');
+            Flash::valid('instoformf  '+$forma->instform);
         }else{
             Flash::error('Falló Operación');
         }
-    }        
+    }
     
+    public function matricula()
+    {
+        View::select('create');
+        if(Input::hasPost('matriculacion'))
+        {
+            $matricula = new Matriculacion(Input::post('matriculacion'));
+            $persona = new persona();
+            $persona->GuardarMatricula($matricula->Nromatricula,$matricula->FechaMat,$matricula->Situacion,$matricula->Provincia
+                    ,$matricula->Profesionmat,$matricula->persona_id,$matricula->CodProfesional);
+        }
+    }
+
 }
