@@ -1,5 +1,4 @@
-<!----------------------------------------PERSONA----------------------------->
-
+<!------------------------------------- FORMACION----------------------------------->
   <div class="panel-group" id="accordion">
       <div class="panel panel-default"> 
           <div class="panel-heading">
@@ -13,7 +12,7 @@
             <?php echo Form::openMultipart('persona/create','class="form-horizontal" id="form1" onsubmit=""') ?>     
             <?php View::content()?>
             <div class="bodform">    
-                
+           <fieldset disabled="true">    
             <div class="form-group">
                 <div class="col-md-4">
                     <label>Nombre</label>
@@ -187,12 +186,12 @@
  
             <div class="form-group">
               <div class="col-md-12">
-                  <?php echo Form::submit('Submit','id="btnpersona" class= "btn btn-info pull-right"  onclick=""')?>
+                  <?php echo Form::submit('Submit','id="btnpersona" class= "btn btn-info pull-right" disabled="True" onclick=""')?>
                   <?php// return HabilitarBtn(this.id,btnformacion,form1)?>
               </div>
             </div>
    
-          
+           </fieldset>
             </div>  
             
             <?php echo Form::close()?>    
@@ -285,7 +284,7 @@
                   
                   <div class="form-group">
                       <div class="col-md-12">
-                          <button id="btnformacion" type="submit" class="btn btn-info pull-right" disabled="True" onclick="return HabilitarBtn(this.id,btnmatriculacion)">Submit</button>
+                          <button id="btnformacion" type="submit" class="btn btn-info pull-right" onclick="return HabilitarBtn(this.id,btnmatriculacion)">Submit</button>
                       </div>
                   </div>          
               </div>
@@ -362,6 +361,5 @@
       </div>
   </div>        
 </div>
-
 
 

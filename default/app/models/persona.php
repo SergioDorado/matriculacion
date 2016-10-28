@@ -7,11 +7,11 @@ class persona extends ActiveRecord
       $pers = new persona();
       return ($pers->find_first("order: id desc"));
     }
-    public function GuardarDoc($tipo,$nro,$idpersona) //Guarda el Dni del matriculado
+    public function GuardarDoc($tipo,$idpersona) //Guarda el Dni del matriculado
     {
         Load::model('documento');
         $doc = new documento();
-        $doc->Guardar($tipo,$nro,$idpersona); // pasa los parametros al modelo documento donde se realiza el guardado
+        $doc->Guardar($tipo,$idpersona); // pasa los parametros al modelo documento donde se realiza el guardado
     }
     
     public function GuardarTels($id,$tiene,$tipo1,$tel1,$tipo2,$tel2,$tipo3,$tel3,$tipo4,$tel4) //Guarda el o los telefonos del matriculado

@@ -6,8 +6,8 @@
 
 function CuilH(dni,cuil1)//calcula el cuil de Hombres
 {
-    if(documento_nrodoc.value.length == 8)
-    {
+    if(persona_dni.value.length == 8)
+    { 
         var doc= document.getElementById(""+dni.id+"");
         var inpcuil= document.getElementById(""+cuil1.id+"");
         var com = [20];
@@ -49,7 +49,7 @@ function CuilH(dni,cuil1)//calcula el cuil de Hombres
 
 function CuilM(dni,cuil1) //calcula el cuil Mujeres
   { 
-      if(documento_nrodoc.value.length == 8)
+      if(persona_dni.value.length == 8)
       {
           var doc= document.getElementById(""+dni.id+"");
           var inpcuil= document.getElementById(""+cuil1.id+"");
@@ -310,3 +310,15 @@ function SiReval(iddiv,iddiv2){ // si posee revalida muestra el campo de revalid
     div.style.display = 'block';
 	div2.style.display='block';
 }
+
+function HabilitarBtn(btn1, btn2)
+{
+	bot1 = document.getElementById(""+btn1.id+"");
+	bot2 = document.getElementById(""+btn2.id+"");
+	//formu1=document.getElementById(""+formu.id+"");
+	bot1.disabled = true;
+	bot2.disabled = false;
+	//formu1.submit();
+	
+}
+
