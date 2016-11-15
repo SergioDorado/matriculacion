@@ -322,3 +322,28 @@ function HabilitarBtn(btn1, btn2)
 	
 }
 
+function Mayus1() // Convierte a mayuscula todos los campos con texto del formulario create.phtml de matriculados.
+{
+        
+		
+	var nombre = persona_Nombre.value;
+	var apellido = persona_Apellido.value;
+	var domicilio = persona_DomCalle.value;
+	var dpto = persona_DomDepto.value;
+	var barrio = persona_Barrio.value;
+	var mail = persona_Mail.value;
+	
+	persona_Nombre.value = nombre.toUpperCase();
+	persona_Apellido.value = apellido.toUpperCase();
+	persona_DomCalle.value = domicilio.toUpperCase();
+	persona_DomDepto.value = dpto.toUpperCase();
+	persona_Barrio.value = barrio.toUpperCase();
+	persona_Mail.value = mail.toLowerCase();
+}
+
+function Mayus2()
+{
+    var titulo = formacion_Titulo.value;
+    
+    formacion_Titulo.value = titulo.toUpperCase();
+}

@@ -31,8 +31,8 @@ class PersonaController extends AppController
                 //Flash::valid();
                 //Eliminamos el POST, si no queremos que se vean en el form
                 //Input::delete();
-                $this->formacion($idpersona);
-                View::select('formacion');
+                $this->formacion1($idpersona);
+                View::select('formacion1');
                 return;               
             }else{
                 Flash::error('Falló Operación');
@@ -40,33 +40,39 @@ class PersonaController extends AppController
         }
     }
     
-    public function formacion($id)
+    public function formacion1($id)
     {
         $persona = new persona();
         $this->persona =$persona->find($id);
         
         $this->param1 = $id;
-        //View::select('create');
+
         if(Input::hasPost('formacion')){
             $forma = new Formacion(Input::post('formacion'));
             $persona->GuardarForma($forma->TipoFormacion,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
                     $forma->FechaRevalida, $forma->InstitucionRevalida, $forma->ProfesionReferencia,$forma->instform, $id,
                     $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
-            Flash::valid('instoformf  '+$forma->instform);
+            //Flash::valid('instoformf  '+$forma->instform);
+            $this->matricula1($id);
+            View::select('matricula1');
         }else{
             //Flash::error('Falló Operación');
         }
     }
     
-    public function matricula()
+    public function matricula1($id)
     {
-        View::select('create');
+        $persona = new persona();
+        $this->persona =$persona->find($id);
+        $this->paramet2 = $id;
+        $formacion = new Formacion();
+        $this->formacion = $formacion->find("conditions: persona_id=$id");
+        $nivel = $formacion->find_first("conditions: persona_id=$id")->TipoFormacion;
         if(Input::hasPost('matriculacion'))
         {
             $matricula = new Matriculacion(Input::post('matriculacion'));
-            $persona = new persona();
-            $persona->GuardarMatricula($matricula->Nromatricula,$matricula->FechaMat,$matricula->Situacion,$matricula->Provincia
-                    ,$matricula->Profesionmat,$matricula->persona_id,$matricula->CodProfesional);
+            $persona->GuardarMatricula($matricula->GenerarNro($nivel),$matricula->FechaMat,$matricula->Situacion,$matricula->Provincia
+                    ,$matricula->Profesionmat,$id,$matricula->CodProfesional);
         }
     }
 
