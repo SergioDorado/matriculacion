@@ -6,5 +6,11 @@ class Provincia extends ActiveRecord
         $prov = new Provincia();
         return $prov->find('order: nombre');
     }
+    
+    public function DevolverProvincia($cod)
+    {
+        $prov = new Provincia();
+        return ($prov->find_first("id=$cod")->nombre);
+    }
 }
 

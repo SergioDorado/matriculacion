@@ -9,4 +9,10 @@ class documento extends ActiveRecord
         $doc->save();
     }
     
+    public function buscar($id)
+    {
+        $doc = new documento();
+        return ($doc->find_first("persona_id=$id"));
+    }
+    
 }

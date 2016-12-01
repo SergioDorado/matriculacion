@@ -11,4 +11,16 @@ class PaisNacionalidad extends ActiveRecord
         $nac = new PaisNacionalidad();
         return ($nac->find("order: Nacionalidad"));
     }
+    
+    public function Pais($cod)
+    {
+        $pais = new PaisNacionalidad(); 
+        return ($pais->find_first("Codigo=$cod")->Pais);
+    }
+    
+     public function Nacionalidad($cod)
+    {
+        $nac = new PaisNacionalidad(); 
+        return ($nac->find_first("Codigo=$cod")->Nacionalidad);
+    }
 }

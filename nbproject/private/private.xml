@@ -3,25 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/matriculareferencia.php</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/_shared/partials/matriculacion/navbar.phtml</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/provincia.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/libs/phpqrcode/qrlib.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/constancia/GenerarConstancia.phtml</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/controllers/persona_controller.php</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/formacion.php</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/documento.php</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/matriculacion.php</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/telefono.php</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/persona/formacion1.phtml</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/constancia/Buscar.phtml</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/persona/create.phtml</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/persona/matricula1.phtml</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/profesion.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/_shared/templates/MasterPage.phtml</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/libs/QRGenerator.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/libs/phpqrcode/phpqrcode.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/_shared/partials/matriculacion/navbar.phtml</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/controllers/constancia_controller.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/tipos_formacion.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/provincia.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/formacion.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/matriculacion.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/libs/php-barcode.php</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/persona/formacion1.phtml</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/persona/matricula1.phtml</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/profesiones.php</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/pais_nacionalidad.php</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/public/javascript/matriculacion/validaciones.js</file>
+            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/pais_nacionalidad.php</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/inst_form.php</file>
             <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/persona.php</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/views/_shared/templates/MasterPage.phtml</file>
-            <file>file:/C:/xampp/htdocs/matriculacion/default/app/models/ciudad_nacimiento.php</file>
         </group>
     </open-files>
 </project-private>

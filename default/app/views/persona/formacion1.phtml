@@ -219,7 +219,7 @@
               <div class="bodform">
                   <div class="form-group">
                       <div class="col-md-4">
-                          <?php $formaciones = array(0=>'--Seleccionar tipo de Profesión',1=>'UNIVERSITARIO',2=>'TECNICO',3=>'AUXILIAR')?>
+                          <?php $formaciones = array(0=>'--Seleccionar tipo de Profesión',3=>'UNIVERSITARIO',2=>'TECNICO',1=>'AUXILIAR')?>
                           <label>Tipo de formacion</label>
                           <?php echo Form::select('formacion.TipoFormacion', $formaciones,'class="form-control" onclick="return HabilitarBtn(btnpersona,btnformacion)"','--Seleccionar tipo de Formación required')?>
                       </div>

@@ -1,5 +1,5 @@
 <?php 
-Load::model('Matriculareferencia');
+Load::models('Matriculareferencia','profesiones','provincia');
 class Matriculacion extends ActiveRecord
 {
    public function Guardar($nromat,$fecha,$situacion,$prov,$prof,$personaid,$codprof)
@@ -46,4 +46,38 @@ class Matriculacion extends ActiveRecord
           $nromat = $niv.$lib.$folio;
       }
    }
+   
+   public function buscar($id)
+   {
+       $mat = new Matriculacion();
+       return ($mat->find_first("persona_id=$id"));
+   }
+   
+   public function Formatofeha($fecha)
+    {
+       $time= new DateTime($fecha);
+       return $time->format('d/m/Y');
+    }
+    
+    public function Prof($cod)
+    {
+        $prof = new Profesiones();
+        return ($prof->DevolverProfesion($cod));
+    }
+    
+    public function Habilitado($param)
+    {
+        if($param == 0)
+        {
+            return('No Habilitado');
+        }
+        else{return 'Habilitado';}
+        
+    }
+    
+    public function Prov($cod)
+    {
+        $provin = new Provincia();
+        return ($provin->DevolverProvincia($cod));
+    }
 }

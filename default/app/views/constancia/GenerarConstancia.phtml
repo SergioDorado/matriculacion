@@ -1,0 +1,268 @@
+<?php
+    require CORE_PATH . '../default/app/libs/fpdf.php';
+    include CORE_PATH . '../default/app/libs/php-barcode.php';
+    
+     // -------------------------------------------------- //
+  //                      USEFUL
+  // -------------------------------------------------- //
+  
+  class eFPDF extends FPDF{
+    function TextWithRotation($x, $y, $txt, $txt_angle, $font_angle=0)
+    {
+        $font_angle+=90+$txt_angle;
+        $txt_angle*=M_PI/180;
+        $font_angle*=M_PI/180;
+    
+        $txt_dx=cos($txt_angle);
+        $txt_dy=sin($txt_angle);
+        $font_dx=cos($font_angle);
+        $font_dy=sin($font_angle);
+    
+        $s=sprintf('BT %.2F %.2F %.2F %.2F %.2F %.2F Tm (%s) Tj ET',$txt_dx,$txt_dy,$font_dx,$font_dy,$x*$this->k,($this->h-$y)*$this->k,$this->_escape($txt));
+        if ($this->ColorFlag)
+            $s='q '.$this->TextColor.' '.$s.' Q';
+        $this->_out($s);
+    }
+  }
+
+  // -------------------------------------------------- //
+  //                  PROPERTIES
+  // -------------------------------------------------- //
+  
+  $fontSize = 8;
+  $marge    = -3;   // between barcode and hri in pixel
+  $x        = 160;  // barcode center
+  $y        = 285;  // barcode center
+  $height   = 8;   // barcode height in 1D ; module size in 2D
+  $width    = 0.5;    // barcode height in 1D ; not use in 2D
+  $angle    = 0;   // rotation in degrees
+  
+  $code     = "$CodProfCons"; // barcode, of course ;)
+  $type     = 'code39';
+  $black    = '000000'; // color in hexa
+  
+  
+
+    
+    $pdf=new eFPDF('P','mm');
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
+    $pdf->Image('img\ConstanciaMatriculaActiva.jpg',0,0,220,300,'JPG');
+    $pdf->SetFont('Arial','',10);
+    //-----------Resumen---------------
+    $pdf->SetXY(34, 42.7);    //
+    $pdf->Cell(10, 5, $CodProfCons, 0, 0, 'L');
+    $pdf->SetXY(34, 48);    //
+    $pdf->Cell(10, 5,utf8_decode($TituloCons), 0, 0, 'L');
+    $pdf->SetXY(34, 52.3);    //
+    $pdf->Cell(10, 5,'Matricula: '.$MatCons, 0, 0, 'L');
+    $pdf->SetXY(34, 56.3);    //
+    $pdf->Cell(10, 5,'Habilitado en Jujuy', 0, 0, 'L');
+    
+    //----------------Datos Personales-------------------
+    $pdf->SetXY(52, 74.8);    //apellido y apellido
+    $pdf->Cell(10, 5, utf8_decode($ApeCons.', '.$NomCons), 0, 0, 'L');
+    $pdf->SetXY(52, 79.3);  //DNI
+    $pdf->Cell(10, 5, $DniCons, 0, 0, 'L');
+    $pdf->SetXY(52, 84); //Fecha de nacimiento
+    $pdf->Cell(10, 5, $FnacCons, 0, 0, 'L');
+    $pdf->SetXY(52, 88.5);// Pais de nacimiento
+    $pdf->Cell(10, 5, utf8_decode($PaisCons), 0, 0, 'L');
+    $pdf->SetXY(52, 93.2);//Nacionalidad
+    $pdf->Cell(10, 5, utf8_decode($NacioCons), 0, 0, 'L');
+    $pdf->SetXY(52, 97.8);// Sexo
+    $pdf->Cell(10, 5, $SexoCons, 0, 0, 'L');
+    $pdf->SetXY(52, 102.4);// CuilCuit
+    $pdf->Cell(10, 5, $CuilCons, 0, 0, 'L');
+    $pdf->SetXY(52, 107);// Incluido en padron SSS
+    $pdf->Cell(10, 5, $Padron, 0, 0, 'L');
+    $pdf->SetXY(52, 111.7);// Numero de Certificacion
+    $pdf->Cell(10, 5, $NroCerti, 0, 0, 'L');
+    $pdf->SetXY(52, 116.4); //Fecha de certificacion
+    $pdf->Cell(10, 5, $FecCertif, 0, 0, 'L');
+    $pdf->SetXY(52, 121.2);// Jusrisdiccion 1
+    $pdf->Cell(10, 5, $Juris1, 0, 0, 'L');
+//    $pdf->SetXY(52, 125.7); //Jurisdiccion 2
+//    $pdf->Cell(10, 5, $Juris2, 0, 0, 'L');
+//    $pdf->SetXY(52, 130.4);// Jusrisdiccion 3
+//    $pdf->Cell(10, 5, $Juris3, 0, 0, 'L');
+    $pdf->SetXY(52, 125.7); //Activo
+    $pdf->Cell(10, 5, $Activo, 0, 0, 'L');
+    
+    //-----------Datos Formacion---------
+    $pdf->SetXY(13, 136.7); //
+    $pdf->Cell(10, 5, utf8_decode('Título'), 0, 0, 'L');
+    $pdf->SetXY(50, 136.7); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');          // Fecha de egreso
+    $pdf->SetXY(52, 136.7); //
+    $pdf->Cell(10, 5,$FecEgreCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 141.7); //
+    $pdf->Cell(10, 5, utf8_decode('Formación'), 0, 0, 'L');
+    $pdf->SetXY(50, 141.7); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');          //Nivel de formación
+    $pdf->SetXY(52, 141.7); //
+    $pdf->Cell(10, 5, utf8_decode($FormaCons), 0, 0, 'L');
+    
+    $pdf->SetXY(13, 146.7); //
+    $pdf->Cell(10, 5, utf8_decode('Profesión de referencia'), 0, 0, 'L');
+    $pdf->SetXY(50, 146.7); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');          //Profesión de Referencia
+    $pdf->SetXY(52, 146.7); //
+    $pdf->Cell(10, 5, utf8_decode($ProfRefeCons), 0, 0, 'L');
+    
+    $pdf->SetXY(13, 151.7); //
+    $pdf->Cell(10, 5, utf8_decode('Título'), 0, 0, 'L');
+    $pdf->SetXY(50, 151.7); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');          //Título
+    $pdf->SetXY(52, 151.7); //
+    $pdf->Cell(10, 5, utf8_decode($TituloCons), 0, 0, 'L');
+    
+    $pdf->SetXY(13, 156.7); //
+    $pdf->Cell(10, 5, utf8_decode('Institución Formadora'), 0, 0, 'L');
+    $pdf->SetXY(50, 156.7); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');          //Institución Formadora
+    $pdf->SetFont('Arial','',8);
+    $pdf->SetXY(52, 156.7); //
+    $pdf->Cell(10, 5, utf8_decode($InstFormCons), 0, 0, 'L');
+    
+    $pdf->SetFont('Arial','',10);
+    $pdf->SetXY(13, 161.7); //
+    $pdf->Cell(10, 5, utf8_decode('Registró'), 0, 0, 'L');
+    $pdf->SetXY(50, 161.7); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');          //Registró
+    $pdf->SetXY(52, 161.7); //
+    $pdf->Cell(5, 5, $RegistroCons, 0, 0, 'L');  
+
+    
+    //-------------Datos Matricula---------------
+    
+    $pdf->SetXY(13, 190); //
+    $pdf->Cell(10, 5, utf8_decode('Fecha de matriculación'), 0, 0, 'L');
+    $pdf->SetXY(50, 190); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 190); //
+    $pdf->Cell(10, 5, $FecMatCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 195); //
+    $pdf->Cell(10, 5, utf8_decode('Matrícula'), 0, 0, 'L');
+    $pdf->SetXY(50, 195); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 195); //
+    $pdf->Cell(10, 5, $MatCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 200); //
+    $pdf->Cell(10, 5, utf8_decode('Profesión Matriculada'), 0, 0, 'L');
+    $pdf->SetXY(50, 200); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 200); //
+    $pdf->Cell(10, 5, utf8_decode($ProfMatCons), 0, 0, 'L');
+    
+    $pdf->SetXY(13, 205); //
+    $pdf->Cell(10, 5, utf8_decode('Provincia'), 0, 0, 'L');
+    $pdf->SetXY(50, 205); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 205); //
+    $pdf->Cell(10, 5, utf8_decode($ProvCons), 0, 0, 'L');
+    
+    $pdf->SetXY(13, 210); //
+    $pdf->Cell(10, 5, utf8_decode('Situación'), 0, 0, 'L');
+    $pdf->SetXY(50, 210); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 210); //
+    $pdf->Cell(10, 5, $SituacionCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 215); //
+    $pdf->Cell(10, 5, utf8_decode('Emitió'), 0, 0, 'L');
+    $pdf->SetXY(50, 215); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 215); //Emitio
+    $pdf->Cell(10, 5, $RegistroCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 220); //
+    $pdf->Cell(10, 5, utf8_decode('Domicilio'), 0, 0, 'L');
+    $pdf->SetXY(50, 220); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 220); //
+    $pdf->Cell(10, 5, utf8_decode($CalleCons.' '.$NroDomCons.'-   Piso: '.$PisoDomCons.' Dto: '.$DptoDomCons), 0, 0, 'L');    
+    
+//    $pdf->SetXY(13, 225); //
+//    $pdf->Cell(10, 5, utf8_decode('Nro.'), 0, 0, 'L');
+//    $pdf->SetXY(50, 225); //
+//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+//    $pdf->SetXY(52, 225); //
+//    $pdf->Cell(10, 5, $NroDomCons, 0, 0, 'L');
+//    
+//    
+//    $pdf->SetXY(13, 230); //
+//    $pdf->Cell(10, 5, utf8_decode('Piso'), 0, 0, 'L');
+//    $pdf->SetXY(50, 230); //
+//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+//    $pdf->SetXY(137, 216); //
+//    $pdf->Cell(10, 5, $PisoDomCons, 0, 0, 'L');
+//    
+//    
+//    $pdf->SetXY(13, 235); //
+//    $pdf->Cell(10, 5, utf8_decode('Dto.'), 0, 0, 'L');
+//    $pdf->SetXY(50, 235); //
+//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+//    $pdf->SetXY(52, 235); //
+//    $pdf->Cell(10, 5, $DptoDomCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 225); //
+    $pdf->Cell(10, 5, utf8_decode('Tipo'), 0, 0, 'L');
+    $pdf->SetXY(50, 225); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52,225);
+    $pdf->Cell(10, 5, $TipoTelCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 230); //
+    $pdf->Cell(10, 5, utf8_decode('Telefono'), 0, 0, 'L');
+    $pdf->SetXY(50, 230); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 230);
+    $pdf->Cell(10, 5, $NumTelCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 235); //
+    $pdf->Cell(10, 5, utf8_decode('Acta'), 0, 0, 'L');
+    $pdf->SetXY(50, 235); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 235); //
+    $pdf->Cell(10, 5, '*sin dato*', 0, 0, 'L');
+    
+    $pdf->SetXY(13, 240); //
+    $pdf->Cell(10, 5, utf8_decode('Folio'), 0, 0, 'L');
+    $pdf->SetXY(50, 240); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 240); //
+    $pdf->Cell(10, 5, $FolioCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 245); //
+    $pdf->Cell(10, 5, utf8_decode('Libro'), 0, 0, 'L');
+    $pdf->SetXY(50, 245); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 245); //
+    $pdf->Cell(10, 5, $LibroCons, 0, 0, 'L');
+    
+    $pdf->SetXY(13, 250); //
+    $pdf->Cell(10, 5, utf8_decode('Expediente'), 0, 0, 'L');
+    $pdf->SetXY(50, 250); //
+    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+    $pdf->SetXY(52, 250); //
+    $pdf->Cell(10, 5, '*sin dato*', 0, 0, 'L'); 
+ 
+  
+  $data = Barcode::fpdf($pdf, $black, $x, $y, $angle, $type, array('code'=>$code), $width, $height);
+  
+  
+  $pdf->SetFont('Arial','B',$fontSize);
+  $pdf->SetTextColor(0, 0, 0);
+  $len = $pdf->GetStringWidth($data['hri']);
+  Barcode::rotate(-$len / 2, ($data['height'] / 2) + $fontSize + $marge, $angle, $xt, $yt);
+  $pdf->TextWithRotation($x + $xt, $y + $yt, $data['hri'], $angle);
+  
+ //    $pdf->Image("http://chart.apis.google.com/chart?cht=qr&chs=230x230&chl=http%3A%2F%2F127.0.0. 1%2Fproyecto%2Fphp%2Flog.php%3Fbusca%$DniCons%26submit%3Dbuscar&ecc=L&matrix=4",160,275,20,20,'PNG'); 
+//      $pdf->Image("http://chart.apis.google.com/chart?cht=qr&chs=230x230&chl=$DniCons",160,278,20,20,'PNG');
+  
+  $pdf->Output();
+?>

@@ -35,4 +35,24 @@ class persona extends ActiveRecord
         $matric = new Matriculacion();
         $matric->Guardar($nromat, $fecha, $situacion, $prov, $prof, $personaid, $codprof);
     }
+    public function buscar($dni)
+    {
+        $pers = new persona();
+        return ($pers->find_first("dni=$dni"));
+    }
+    
+    public function Formatofeha($fecha)
+    {
+       $time= new DateTime($fecha);
+       return $time->format('d/m/Y');
+    }
+    
+    public function Sexo($sexo)
+    {
+        if($sexo == 'M')
+        {
+            return 'Masculino';
+        }
+        else {return 'Femenino';}
+    }
 }

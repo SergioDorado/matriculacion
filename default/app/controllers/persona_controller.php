@@ -70,9 +70,12 @@ class PersonaController extends AppController
         $nivel = $formacion->find_first("conditions: persona_id=$id")->TipoFormacion;
         if(Input::hasPost('matriculacion'))
         {
+            $doc = new documento();
+            $doc = Load::model('documento')->buscar($persona->id);
+            $codigoprof = ('54'.$doc->tipodoc.'0'.$persona->dni);
             $matricula = new Matriculacion(Input::post('matriculacion'));
             $persona->GuardarMatricula($matricula->GenerarNro($nivel),$matricula->FechaMat,$matricula->Situacion,$matricula->Provincia
-                    ,$matricula->Profesionmat,$id,$matricula->CodProfesional);
+                    ,$matricula->Profesionmat,$id,$codigoprof);
         }
     }
 

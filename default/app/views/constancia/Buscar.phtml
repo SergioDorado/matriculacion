@@ -1,0 +1,35 @@
+<?php Load::lib('QRGenerator');?>
+
+<div class="row">
+    <div class="col-md-4">
+        
+    </div>
+    <div class="col-md-4">
+        <h3>Buscar Personas</h3>
+    </div>
+</div>
+<?php echo Form::open("constancia/buscar",'POST','class="form.horizontal"') ?>
+<div class="form-group">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <label> </label>
+        <?php echo Form::text('buscar1','class="form-control" placeholder="Ingrese el DNI" maxlength="8" required')?>
+    </div>
+    <div class="col-md-4">
+        <label> </label>
+       <?php echo Form::submit('Buscar','class="btn btn-info pull-left" style=" position:relative; top: 18px"')?> 
+    </div> 
+</div>
+<br>
+<br>
+<br>
+
+<?php Form::close()?>
+<br>
+<br>
+<div style="text-align: center">
+<?php // $ex2 = new QRGenerator('Sergio Dorado',10); 
+//      echo "<img src=".$ex2->generate()." height='60' width='60'>"; ?>
+</div>
+<?php View::content()?>
+

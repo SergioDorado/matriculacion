@@ -18,4 +18,10 @@ class telefono extends ActiveRecord
              $telef->save();
             }
     }
+    
+    public function buscar($id)
+    {
+        $tel = new telefono();
+        return ($tel->find_first("persona_id=$id"));
+    }
 }
