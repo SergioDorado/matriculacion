@@ -55,4 +55,10 @@ class persona extends ActiveRecord
         }
         else {return 'Femenino';}
     }
+    
+    public function DevolverId($dni)
+    {
+        $pers = new persona();
+        return ($pers->find_first("dni=$dni")->id);
+    }
 }

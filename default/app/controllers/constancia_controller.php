@@ -12,7 +12,8 @@ class ConstanciaController extends AppController
             $persona= new persona();
             if($persona->exists("dni=$dni"))
             {
-               View::select('GenerarConstancia'); 
+               
+               View::select('GenerarConstancia');
                $this->GenerarConstancia($dni) ;
             }
             else{Flash::error('Persona no encontrada');}

@@ -1,4 +1,4 @@
-<!------------------------------------- MATRICULA----------------------------------->
+<!------------------------------------- Especializacion----------------------------------->
   <div class="panel-group" id="accordion">
       <div class="panel panel-default"> 
           <div class="panel-heading">
@@ -186,7 +186,7 @@
  
             <div class="form-group">
               <div class="col-md-12">
-                  <?php echo Form::submit('Guardar','id="btnpersona" class= "btn btn-info pull-right" disabled="True" onclick=""')?>
+                  <?php echo Form::submit('Submit','id="btnpersona" class= "btn btn-info pull-right" disabled="True" onclick=""')?>
                   <?php// return HabilitarBtn(this.id,btnformacion,form1)?>
               </div>
             </div>
@@ -285,7 +285,7 @@
                   
                   <div class="form-group">
                       <div class="col-md-12">
-                          <button id="btnformacion" type="submit" class="btn btn-info pull-right" onclick="return HabilitarBtn(this.id,btnmatriculacion)">Guardar</button>
+                          <button id="btnformacion" type="submit" class="btn btn-info pull-right" onclick="return HabilitarBtn(this.id,btnmatriculacion)">Submit</button>
                       </div>
                   </div> 
                   </fieldset>
@@ -310,6 +310,7 @@
           <div class="panel-body">
               <?php echo Form::openMultipart("persona/matricula1/$paramet2", 'class="form-horizontal"')?>
                 <div class="bodform">
+                    <fieldset disabled="true">
                     <?php View::content();?>
                     <div class="form-group">
                         <!--<div class="col-md-4">
@@ -352,15 +353,39 @@
                     
                   <div class="form-group">
                       <div class="col-md-12">
-                          <button id="btnmatriculacion" type="submit" class="btn btn-info pull-right">Guardar</button>
+                          <button id="btnmatriculacion" type="submit" class="btn btn-info pull-right">Submit</button>
                       </div>
                   </div>   
-                    
+                    </fieldset>  
                 </div>
               <?php echo Form::close()?>
 
               
           </div>
       </div>
-  </div>        
+  </div> 
+   <!------------------------------------------------------------------------------------------
+   --------------------------------------------------------------------------------------------
+   ----------------------------- Especializacion-----------------------------------------------
+   ------------------------------------------------------------------------------------------->
+   <div class="panel panel-default"> 
+      <div class="panel-heading">
+          <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+              DATOS DE MATRICULA
+          </h4>
+      </div>
+       <div id="collapse4" class="panel-collapse collapse">
+           <div class="panel-body">
+             <?php echo Form::openMultipart()?>
+               <div class="bodform">
+                   <div class="form-group">
+                       
+                   </div>
+               </div>
+             <?php echo Form::close()?>
+           </div>
+       </div>
+       
+   </div>
+   
 </div>

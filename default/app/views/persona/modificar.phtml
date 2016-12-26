@@ -1,4 +1,3 @@
-<!------------------------------------- MATRICULA----------------------------------->
   <div class="panel-group" id="accordion">
       <div class="panel panel-default"> 
           <div class="panel-heading">
@@ -9,10 +8,9 @@
           <div id="collapse1" class="panel-collapse">
             <div class="panel-body"> 
             
-            <?php echo Form::openMultipart('persona/create','class="form-horizontal" id="form1" onsubmit=""') ?>     
+            <?php echo Form::openMultipart("persona/modificar/$Modparam",'class="form-horizontal" id="formmodifpers" onsubmit=""') ?>     
             <?php View::content()?>
-            <div class="bodform">    
-           <fieldset disabled="true">    
+            <div class="bodform">  
             <div class="form-group">
                 <div class="col-md-4">
                     <label>Nombre</label>
@@ -74,7 +72,6 @@
             <div class="form-group">
                  <div class="col-md-4">
                     <label>Ciudad de nacimiento</label>
-                    <?php// echo Form::text('persona.CiudadNac','class="form-control" placeholder="Ciudad de nacimiento"')?>
                     <?php echo Form::dbSelect('persona.CuidadNac','Localidad',array('ciudad_nacimiento','ciudadord'),'--Seleccionar Ciudad de Nacimiento--','class="form-control"')?>
                 </div>
                 <div class="col-md-4">
@@ -186,12 +183,11 @@
  
             <div class="form-group">
               <div class="col-md-12">
-                  <?php echo Form::submit('Guardar','id="btnpersona" class= "btn btn-info pull-right" disabled="True" onclick=""')?>
+                  <?php echo Form::submit('Modificar','id="" class= "btn btn-info pull-right" onclick=""')?>
                   <?php// return HabilitarBtn(this.id,btnformacion,form1)?>
               </div>
             </div>
    
-           </fieldset>
             </div>  
             
             <?php echo Form::close()?>    
@@ -214,38 +210,37 @@
       </div>
       <div id="collapse2" class="panel-collapse collapse">
           <div class="panel-body">
-             <?php echo Form::openMultipart("persona/formacion1/", 'class="form-horizontal"') ?> 
+             <?php echo Form::openMultipart("persona/modifdatospers/$Modparam", 'class="form-horizontal"') ?> 
               
               <div class="bodform">
-                  <fieldset disabled="true">   
                   <div class="form-group">
                       <div class="col-md-4">
-                          <?php $formaciones = array(0=>'--Seleccionar tipo de Profesión',1=>'UNIVERSITARIO',2=>'TECNICO',3=>'AUXILIAR')?>
+                          <?php $formaciones = array(0=>'--Seleccionar tipo de Profesión',3=>'UNIVERSITARIO',2=>'TECNICO',1=>'AUXILIAR')?>
                           <label>Tipo de formacion</label>
-                          <?php echo Form::select('formacion.TipoFormacion', $formaciones,'class="form-control" onclick="return HabilitarBtn(btnpersona,btnformacion)"','--Seleccionar tipo de Formación')?>
+                          <?php echo Form::select('formacion.TipoFormacion', $formaciones,'class="form-control"','--Seleccionar tipo de Formación required')?>
                       </div>
                       <div class="col-md-4">
                           <label>Profesión</label>
-                          <?php echo Form::dbSelect('formacion.Profesion','profesion',array('profesiones','ProfesOrde'),'--Seleccionar Pofesion--','class="form-control"');?>
+                          <?php echo Form::dbSelect('formacion.Profesion','profesion',array('profesiones','ProfesOrde'),'--Seleccionar Pofesion--','class="form-control" required');?>
                       </div>
                       <div class="col-md-4">
                           <label>Título</label>
-                          <?php echo Form::text('formacion.Titulo', 'class="form-control" placeholder="Ingrese el Título"')?>
+                          <?php echo Form::text('formacion.Titulo', 'class="form-control" placeholder="Ingrese el Título" required')?>
                       </div>
                   </div>
                   
                   <div class="form-group">
                       <div class="col-md-4">
                           <label>Fecha de Egreso</label>
-                          <?php echo Form::date('formacion.FechaEgreso','class="form-control"')?>
+                          <?php echo Form::date('formacion.FechaEgreso','class="form-control" required')?>
                       </div>
                       <div class="col-md-4">
                           <label>Profesión de Referencia</label>
-                          <?php echo Form::dbSelect('formacion.ProfesionReferencia', 'prf_refe', array('profesion','proforde'), '--Seleccionar Profesion de Referencia--','class="form-control"')?>
+                          <?php echo Form::dbSelect('formacion.ProfesionReferencia', 'prf_refe', array('profesion','proforde'), '--Seleccionar Profesion de Referencia--','class="form-control" required')?>
                       </div>
                       <div class="col-md-4">
                           <label>Institución Formadora</label>
-                          <?php echo Form::dbSelect('formacion.instform','nombre',array('inst_form','instorde'),'--Seleccione Institucion Formadora--','class="form-control"')?>
+                          <?php echo Form::dbSelect('formacion.instform','nombre',array('inst_form','instorde'),'--Seleccione Institucion Formadora--','class="form-control" required')?>
                       </div>
                   </div>
                   
@@ -285,10 +280,9 @@
                   
                   <div class="form-group">
                       <div class="col-md-12">
-                          <button id="btnformacion" type="submit" class="btn btn-info pull-right" onclick="return HabilitarBtn(this.id,btnmatriculacion)">Guardar</button>
+                          <button id="" type="submit" class="btn btn-info pull-right" onclick="return Mayus2()">Modificar</button>
                       </div>
-                  </div> 
-                  </fieldset>
+                  </div>          
               </div>
              <?php echo Form::close()?> 
           </div>
@@ -308,30 +302,26 @@
       </div>
       <div id="collapse3" class="panel-collapse collapse">
           <div class="panel-body">
-              <?php echo Form::openMultipart("persona/matricula1/$paramet2", 'class="form-horizontal"')?>
+              <?php echo Form::openMultipart('persona/matricula1', 'class="form-horizontal"')?>
                 <div class="bodform">
-                    <?php View::content();?>
+                    
                     <div class="form-group">
-                        <!--<div class="col-md-4">
-                            <label>Número de Matrícula</label>-->
-                            <?php echo Form::hidden('matriculacion.Nromatricula','class="form-control"')?>
-                        <!--</div> -->
                         <div class="col-md-4">
                             <label>Fecha de matrícula</label>
-                            <?php echo Form::date('matriculacion.FechaMat','class="form-control" required')?>                              
+                            <?php echo Form::date('matriculacion.FechaMat','class="form-control"')?>                              
                         </div>
                         <div class="col-md-4">
                             <label>Provincia</label>
-                            <?php echo Form::dbSelect('matriculacion.Provincia','nombre',array('provincia','ProvOrd'),'--Seleccionar Provincia--','class="form-control" required')?>
+                            <?php echo Form::dbSelect('matriculacion.Provincia','nombre',array('provincia','ProvOrd'),'--Seleccionar Provincia--','class="form-control"')?>
                         </div>
-                         <div class="col-md-4">
+                        <div class="col-md-4">
                             <label>Profesión Matriculada</label>
-                            <?php echo Form::dbSelect('matriculacion.Profesionmat','profesion',array('profesiones','ProfesOrde'),'--Seleccionar Profesion Matriculada--','class="form-control" maxlength="10" required')?>
+                            <?php echo Form::dbSelect('matriculacion.Profesionmat','profesion',array('profesiones','ProfesOrde'),'--Seleccionar Profesion Matriculada--','class="form-control" maxlength="10"')?>
                         </div>
                     </div> 
                     
                     <div class="form-group">
-                       
+
                         <div class="col-md-2">
                             <label>Publicado en SIISA</label>
                             <div class="radio">
@@ -344,15 +334,12 @@
                                 <label><?php echo Form::radio('matriculacion.Situacion',0,'',TRUE)?> NO</label>
                             </div>
                         </div>
-                        <!--<div class="col-md-4">
-                            <label> Codigo Profesional</label> -->
-                            <?php echo Form::hidden('matriculacion.CodProfesional','class="form-control" maxlength="11"')?>
-                        <!--</div>-->
+
                     </div>
                     
                   <div class="form-group">
                       <div class="col-md-12">
-                          <button id="btnmatriculacion" type="submit" class="btn btn-info pull-right">Guardar</button>
+                          <button id="" type="submit" class="btn btn-info pull-right" disabled="True">Modificar</button>
                       </div>
                   </div>   
                     

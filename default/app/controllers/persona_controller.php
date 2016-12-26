@@ -78,5 +78,58 @@ class PersonaController extends AppController
                     ,$matricula->Profesionmat,$id,$codigoprof);
         }
     }
+    
+    public function verificar()
+    {
+        if(Input::hasPost('verificar1'))
+        {
+            $dni = Input::post('verificar1');
+            $persona= new persona();
+            if($persona->exists("dni=$dni"))
+            {
+               View::select('modificar');
+               $this->modificar($dni);                     
+            }
+            else{Flash::error('Persona no encontrada');} 
+        }
+    }
+    
+    public function modificar($dni)
+    {
+        $persona = new persona();
+        $formacion = new Formacion();
+        $this->Modparam = $dni;
+        If(Input::hasPost('persona'))
+        {
+            if($persona->update(Input::post('persona')))
+            {
+                Flash::valid('Modificación Exitosa');
+            }
+        }
+        else
+            {
+                $this->persona = $persona->find_first("conditions: dni=$dni");
+                $id = $persona->DevolverId($dni);
+                $this->formacion = $formacion->find_first("conditions: persona_id=$id");
+            }
+                
+    }
+    
+    public function modifdatospers($dni)
+    {
+        $formacion = new Formacion();
+        if(Input::hasPost('formacion'))
+        {
+            if($formacion->update(Input::post('formacion')))
+            {
+                Flash::valid('Modificación Exitosa');
+            }
+        }
+        else
+        {
+            $id = Load::model('persona')->DevolverId($dni);
+            $this->formacion = $formacion->find_first("conditions: persona_id=$id");
+        }
+    }
 
 }
