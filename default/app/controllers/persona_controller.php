@@ -3,7 +3,14 @@
 Load::models('persona','documento','telefono','formacion','matriculacion');
 class PersonaController extends AppController
 {
-    
+    public function documentacion()
+    {
+        If(Input::hasPost('cuil','dni'))
+        {
+            View::select('create');
+        }
+        else{ Flash::error('FALTAN REQUISITOS OBLIGATORIOS, NO SE PUEDEN EMPEZAR LOS TRAMITES!!'); }
+    }
      public function create()
     {
       /**
@@ -28,7 +35,7 @@ class PersonaController extends AppController
                 $idpersona =  $pesaux->find_first("order: id desc")->id;
                 $persona->GuardarDoc($docum->tipodoc,$idpersona );
                 $persona->GuardarTels($idpersona, $telef->TieneTel, $telef->Tipo1, $telef->NumTel1, $telef->Tipo2, $telef->NumTel2, $telef->Tipo3, $telef->NumTel3, $telef->Tipo4, $telef->NumTel4);
-                //Flash::valid();
+                Flash::valid('Carga de DATOS PERSONALES Exitosa');
                 //Eliminamos el POST, si no queremos que se vean en el form
                 //Input::delete();
                 $this->formacion1($idpersona);
@@ -49,10 +56,11 @@ class PersonaController extends AppController
 
         if(Input::hasPost('formacion')){
             $forma = new Formacion(Input::post('formacion'));
+            $profrefe = $forma->Referencia($forma->Profesion);
             $persona->GuardarForma($forma->TipoFormacion,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
-                    $forma->FechaRevalida, $forma->InstitucionRevalida, $forma->ProfesionReferencia,$forma->instform, $id,
+                    $forma->FechaRevalida, $forma->InstitucionRevalida, $profrefe,$forma->instform, $id,
                     $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
-            //Flash::valid('instoformf  '+$forma->instform);
+            Flash::valid('Carga de DATOS PROFESIONALES Exitosa');
             $this->matricula1($id);
             View::select('matricula1');
         }else{
@@ -76,6 +84,7 @@ class PersonaController extends AppController
             $matricula = new Matriculacion(Input::post('matriculacion'));
             $persona->GuardarMatricula($matricula->GenerarNro($nivel),$matricula->FechaMat,$matricula->Situacion,$matricula->Provincia
                     ,$matricula->Profesionmat,$id,$codigoprof);
+            Flash::valid('Carga de DATOS DE MATRICULA Exitosa');
         }
     }
     
@@ -98,26 +107,33 @@ class PersonaController extends AppController
     {
         $persona = new persona();
         $formacion = new Formacion();
+        $matricula = new Matriculacion();
         $this->Modparam = $dni;
         If(Input::hasPost('persona'))
         {
-            if($persona->update(Input::post('persona')))
-            {
-                Flash::valid('Modificación Exitosa');
-            }
+            $parametros = new persona(Input::post('persona'));
+            $persona->Modificar($dni, $parametros);
+            Flash::valid('Modificacion exitosa');
+            $this->persona = $persona->find_first("conditions: dni=$dni");
+            $id = $persona->DevolverId($dni);
+            $this->formacion = $formacion->find_first("conditions: persona_id=$id");
+            $this->matriculacion = $matricula->find_first("conditions: persona_id=$id");
         }
         else
             {
                 $this->persona = $persona->find_first("conditions: dni=$dni");
                 $id = $persona->DevolverId($dni);
                 $this->formacion = $formacion->find_first("conditions: persona_id=$id");
+                $this->matriculacion = $matricula->find_first("conditions: persona_id=$id");
             }
                 
     }
     
     public function modifdatospers($dni)
     {
+        View::select(modificar);
         $formacion = new Formacion();
+        $id = Load::model('persona')->DevolverId($dni);
         if(Input::hasPost('formacion'))
         {
             if($formacion->update(Input::post('formacion')))
@@ -130,6 +146,20 @@ class PersonaController extends AppController
             $id = Load::model('persona')->DevolverId($dni);
             $this->formacion = $formacion->find_first("conditions: persona_id=$id");
         }
+    }
+    
+    public function modifmat($dni)
+    {
+        $matricula = new Matriculacion();
+        If(Input::hasPost('matriculacion'))
+        {
+            
+        }
+    }
+    
+    public function pruebaajax()
+    {
+        
     }
 
 }

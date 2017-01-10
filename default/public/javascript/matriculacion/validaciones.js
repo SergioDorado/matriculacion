@@ -347,3 +347,24 @@ function Mayus2()
     
     formacion_Titulo.value = titulo.toUpperCase();
 }
+
+function msjalerta(id1,id2)
+{
+	div1 = document.getElementById(""+id1.id+"");
+	div2 = document.getElementById(""+id2.id+"");
+	
+	div1.style.display = 'none';
+	div2.style.display = 'block';
+}
+
+function verfidocum(var1,var2,var3,var4,var5)
+{
+	check1 = document.getElementById(''+var1.id+'');
+	check2 = document.getElementById(''+var2.id+'');
+	check3 = document.getElementById(''+var3.id+'');
+	check4 = document.getElementById(''+var4.id+'');
+	div1 = document.getElementById(''+var5+'');
+	
+	if(check1.checked && check2.checked && check3.checked && check2.checked){return true} else{ div1.style.display = "block"; return false}
+	
+}

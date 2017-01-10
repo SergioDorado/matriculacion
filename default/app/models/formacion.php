@@ -1,5 +1,5 @@
 <?php
-Load::models('tipos_formacion','profesion','inst_form');
+Load::models('tipos_formacion','profesion','inst_form','profesiones');
 class Formacion extends ActiveRecord
 {
     public function Guardar($tipo,$prof,$titulo,$fecheg,$rev,$fecrev,$instrev,$profref,$instiform,$idpers,$profasoc,$orgreg)
@@ -39,5 +39,28 @@ class Formacion extends ActiveRecord
     {
         $inst = new InstForm();
         return ($inst->DevolverInstitucion($cod));
+    }
+    
+    public function Referencia($cod)
+    {
+        $profs = new Profesiones();
+        return($profs->DevolverProfRef($cod));
+    }
+    
+    public function Modificar($id,$parametro)
+    {
+        $forma = new Formacion();
+        $forma->TipoFormacion = $parametro->TipoFormacion;
+        $forma->Profesion = $parametro->Profesion;
+        $forma->Titulo = $parametro->Titulo;
+        $forma->FechaEgreso = $parametro->FechaEgreso;
+        $forma->Revalida = $parametro->Revalida;
+        $forma->FechaRevalida= $parametro->FechaRevalida;
+        $forma->InstitucionRevalida = $parametro->InstitucionRevalida;
+        $forma->ProfesionReferencia= $parametro->ProfesionReferencia;
+        $forma->instform = $parametro->instform;
+        $forma->ProfesionalAsociado = $parametro->ProfesionalAsociado;
+        $forma->OrganismoRegistro = $parametro->OrganismoRegistro;
+        $forma->update();
     }
 }

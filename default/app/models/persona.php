@@ -61,4 +61,27 @@ class persona extends ActiveRecord
         $pers = new persona();
         return ($pers->find_first("dni=$dni")->id);
     }
+    
+    public function Modificar($dni,$parametro)
+    {
+       $pers = new persona();
+       $pers = Load::model('persona')->buscar($dni);
+       $pers->dni = $parametro->dni;
+       $pers->Apellido = $parametro->Apellido;
+       $pers->Nombre = $parametro->Nombre;
+       $pers->FechaNac = $parametro->FechaNac;
+       $pers->PaisNac = $parametro->PaisNac;
+       $pers->Nacionalidad = $parametro->Nacionalidad;
+       $pers->Sexo = $parametro->Sexo;
+       $pers->CuilCuit = $parametro->CuilCuit;
+       $pers->Barrio = $parametro->Barrio;
+       $pers->DomCalle = $parametro->DomCalle;
+       $pers->DomNro = $parametro->DomNro;
+       $pers->DomPiso = $parametro->DomPiso;
+       $pers->DomDepto = $parametro->DomDepto;
+       $pers->CuidadNac = $parametro->CiudadNac;
+       $pers->Mail = $parametro->Mail;
+       $pers->update();
+    }
+    
 }

@@ -9,7 +9,7 @@
             <div class="panel-body"> 
             
             <?php echo Form::openMultipart("persona/modificar/$Modparam",'class="form-horizontal" id="formmodifpers" onsubmit=""') ?>     
-            <?php View::content()?>
+                <div class="alert alert-success" role="alert"><?php View::content()?> </div>
             <div class="bodform">  
             <div class="form-group">
                 <div class="col-md-4">
@@ -221,7 +221,7 @@
                       </div>
                       <div class="col-md-4">
                           <label>Profesión</label>
-                          <?php echo Form::dbSelect('formacion.Profesion','profesion',array('profesiones','ProfesOrde'),'--Seleccionar Pofesion--','class="form-control" required');?>
+                          <?php echo Form::dbSelect('formacion.Profesion','profesion',array('profesiones','ProfesOrde2'),'--Seleccionar Pofesion--','class="form-control" required');?>
                       </div>
                       <div class="col-md-4">
                           <label>Título</label>
@@ -325,13 +325,13 @@
                         <div class="col-md-2">
                             <label>Publicado en SIISA</label>
                             <div class="radio">
-                                <label><?php echo Form::radio('matriculacion.Situacion',1,'',FALSE)?> SI</label>
+                                <label><?php echo Form::radio('matriculacion.Situacion',1,'')?> SI</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <label> </label>
                             <div class="radio">
-                                <label><?php echo Form::radio('matriculacion.Situacion',0,'',TRUE)?> NO</label>
+                                <label><?php echo Form::radio('matriculacion.Situacion',0,'')?> NO</label>
                             </div>
                         </div>
 
@@ -339,7 +339,7 @@
                     
                   <div class="form-group">
                       <div class="col-md-12">
-                          <button id="" type="submit" class="btn btn-info pull-right" disabled="True">Modificar</button>
+                          <button id="" type="submit" class="btn btn-info pull-right">Modificar</button>
                       </div>
                   </div>   
                     
