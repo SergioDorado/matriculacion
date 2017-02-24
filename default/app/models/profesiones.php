@@ -25,5 +25,11 @@ class Profesiones extends ActiveRecord
         $prof =  new Profesiones();
         return($prof->find_first("id=$cod")->codprofref);
     }
+    
+   public function DevolverNombProfRef($cod) //Devuelve el nombre de la profecion de referencia asociada a la profesion con codigo $cod
+    {
+        $prof =  new Profesiones();
+        return($prof->find_first("id=$cod")->profesionref);
+    }
 }
 

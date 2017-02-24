@@ -9,6 +9,7 @@
         <?php echo Tag::js('jquery/jquery.min')?>
         <?php echo Tag::js("matriculacion/validaciones")?>
         <?php echo Tag::js('matriculacion/bootstrap.min')?>
+        <?php echo Tag::js('webcam/webcam')?>
 
         <?php// echo Html::headLink('/turnos/img/turnos/Icono.ico', "rel='shortcut icon',type='image/x-icon'") ?>
         <!--<link rel="shortcut icon" type="image/x-icon" href="/turnos/img/turnos/Icono.ico" /> -->
@@ -17,7 +18,20 @@
         <!--<script src="javascript/matriculacion/bootstrap.min.js"></script>-->
 
 
-        
+        <script type="text/javascript">
+			$(document).ready(function(){
+				$("#provi").change(function(){
+					$.ajax({
+						url:"<?php echo PUBLIC_PATH.'persona/procesa'?>",
+						type: "POST",
+						data:"NombProv="+$("#provi").val(),
+						success: function(opciones){
+							$("#persona_CuidadNac").html(opciones);
+						}
+					})
+				});
+			});
+		</script>
         <?php echo Html::includeCss() ?>
     </head>
     <body>

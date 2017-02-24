@@ -3,28 +3,36 @@ Load::models('persona','formacion','matriculacion','telefono','documento','pais_
 //Load::lib('barcode.inc');
 class ConstanciaController extends AppController
 {
-    public function Buscar()
+    public function Buscar() //Llama a la bista buscar para comprobar si el dni ingresado existe o no
     {
-        if (Input::hasPost('buscar1'))
+        $persona= new persona();
+        $this->listaforma ='';
+        $this->nomb = '';
+        $this->apell = '';
+        $this->docum = '';
+        
+        if (Input::hasPost('buscar1')) //Si hay post del formulario
         {
-            //Flash::valid('Hay post');
-            $dni = Input::post('buscar1');
-            $persona= new persona();
-            if($persona->exists("dni=$dni"))
-            {
-               
-               View::select('GenerarConstancia');
-               $this->GenerarConstancia($dni) ;
+            $dni = Input::post('buscar1');   //capturamos el dni del imput
+            if($persona->exists("dni=$dni"))  //si la persona existe
+            { 
+               $this->listaforma = Load::model('formacion')->ListaForma($persona->DevolverId($dni)); // creamos una lista con todas las formciones que la persona posea
+               $aux = new persona();
+               $aux = $persona->buscar($dni); // buscamos los datos de la persona y los pasamos a variables globales para llamarlas en la vista
+               $this->nomb = $aux->Nombre;  
+               $this->apell = $aux->Apellido;
+               $this->docum = $dni;
             }
             else{Flash::error('Persona no encontrada');}
         }
     }
     
-    public function GenerarConstancia($dni)
+    public function GenerarConstancia($idformacion) // Accion que prepara los parametros de la constancia para pasarlos a la vista
     {
-       View::template(NULL);
-       $persona1 = new persona();
-       $persona1 = Load::model('persona')->buscar($dni);
+       View::template(NULL);  // Para no mostrar lo heredado por la master
+
+       $persona1 = Load::model('persona')->buscarid(Load::model('formacion')->DevolverPersona($idformacion)); //Buscamos los datos de la persona a partir de la formación seleccionada
+       //Pasamos todos los datos de la persona que necesitamos para la copnstancia a variables globales
        $this->NomCons = $persona1->Nombre;
        $this->ApeCons = $persona1->Apellido;
        $this->DniCons = $persona1->dni;
@@ -42,8 +50,9 @@ class ConstanciaController extends AppController
        $this->Activo = 'SI';
        
        $forma = new Formacion();
-       $forma = Load::model('formacion')->buscar($persona1->id);
-       $this->FecEgreCons = $forma->Formatofeha($forma->FechaEgreso);
+       $forma = Load::model('formacion')->find_first("conditions: id=$idformacion"); //traemos los datos de la formacion seleccionada
+       //Pasamos los datos de formación que necesitamos para la constancia a variable globales.
+       $this->FecTitCons = $forma->Formatofeha($forma->FechaTitulo);
        $this->FormaCons = Load::model('formacion')->NivelFormacion($forma->TipoFormacion);
        $this->ProfRefeCons = Load::model('formacion')->ProfRefe($forma->ProfesionReferencia);
        $this->TituloCons = $forma->Titulo;
@@ -51,7 +60,8 @@ class ConstanciaController extends AppController
        $this->RegistroCons = 'Ministerio de Salud de Jujuy';
        
        $mat = new Matriculacion();
-       $mat = Load::model('matriculacion')->buscar($persona1->id);
+       $mat = Load::model('matriculacion')->buscar($idformacion); //Buscamos los datos de la matricula de la formación seleccionada
+       //Pasamos los datos de matricula que necesitamos para la constancia a variables globales
        $this->FecMatCons = $mat->Formatofeha($mat->FechaMat);
        $this->MatCons = $mat->Nromatricula;
        $this->ProfMatCons = Load::model('matriculacion')->Prof($mat->Profesionmat);
@@ -67,14 +77,14 @@ class ConstanciaController extends AppController
        $this->TipoTelCons = $tel->Tipo1;
        $this->NumTelCons = $tel->NumTel1;
        
-       $this->FolioCons = substr($mat->Nromatricula,3,3);
+       $this->FolioCons = substr($mat->Nromatricula,3,3); // separamaos el numero de matricula en libro y folio
        $this->LibroCons = substr($mat->Nromatricula,1,2);
        
        $doc = new documento();
        $doc = Load::model('documento')->buscar($persona1->id);
-       $this->CodProfCons = '54'.$doc->tipodoc.'0'.$persona1->dni;
-       
-       //$this->CodBar = new barCodeGenrator($this->CodProfCons,0,190,130,VERDADERO);
+       $this->CodProfCons = '54'.$doc->tipodoc.'0'.$persona1->dni;// Armamos el codigo de profesional (54 + tipo de documento + 0 + nro de documento)
+//       
+//       //$this->CodBar = new barCodeGenrator($this->CodProfCons,0,190,130,VERDADERO);
        
     }
 }

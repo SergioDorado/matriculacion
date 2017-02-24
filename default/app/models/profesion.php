@@ -10,6 +10,6 @@ class Profesion extends ActiveRecord
     public function DevolverProfesion($cod)
     {
         $prof = new Profesion();
-        return ($prof->find_first("id=$cod")->prf_refe);
+        return ($prof->find_first("contions: id=$cod")->prf_refe);
     }
 }

@@ -1,7 +1,7 @@
 <?php
     require CORE_PATH . '../default/app/libs/fpdf.php';
     include CORE_PATH . '../default/app/libs/php-barcode.php';
-    
+////------------------- Codigo de barra------------/////    
      // -------------------------------------------------- //
   //                      USEFUL
   // -------------------------------------------------- //
@@ -41,7 +41,7 @@
   $type     = 'code39';
   $black    = '000000'; // color in hexa
   
-  
+///----- Fin parametros y configuracion codigo de barra----/////  
 
     
     $pdf=new eFPDF('P','mm');
@@ -91,11 +91,11 @@
     
     //-----------Datos Formacion---------
     $pdf->SetXY(13, 136.7); //
-    $pdf->Cell(10, 5, utf8_decode('Título'), 0, 0, 'L');
+    $pdf->Cell(10, 5, utf8_decode('Fecha de Título'), 0, 0, 'L');
     $pdf->SetXY(50, 136.7); //
     $pdf->Cell(10, 5, ':', 0, 0, 'L');          // Fecha de egreso
     $pdf->SetXY(52, 136.7); //
-    $pdf->Cell(10, 5,$FecEgreCons, 0, 0, 'L');
+    $pdf->Cell(10, 5,$FecTitCons, 0, 0, 'L');
     
     $pdf->SetXY(13, 141.7); //
     $pdf->Cell(10, 5, utf8_decode('Formación'), 0, 0, 'L');
@@ -179,76 +179,54 @@
     $pdf->SetXY(52, 215); //Emitio
     $pdf->Cell(10, 5, $RegistroCons, 0, 0, 'L');
     
+//    $pdf->SetXY(13, 220); //
+//    $pdf->Cell(10, 5, utf8_decode('Domicilio'), 0, 0, 'L');
+//    $pdf->SetXY(50, 220); //
+//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+//    $pdf->SetXY(52, 220); //
+//    $pdf->Cell(10, 5, utf8_decode($CalleCons.' '.$NroDomCons.'-   Piso: '.$PisoDomCons.' Dto: '.$DptoDomCons), 0, 0, 'L');    
+//    
+//    
+//    $pdf->SetXY(13, 225); //
+//    $pdf->Cell(10, 5, utf8_decode('Tipo'), 0, 0, 'L');
+//    $pdf->SetXY(50, 225); //
+//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+//    $pdf->SetXY(52,225);
+//    $pdf->Cell(10, 5, $TipoTelCons, 0, 0, 'L');
+//    
+//    $pdf->SetXY(13, 230); //
+//    $pdf->Cell(10, 5, utf8_decode('Telefono'), 0, 0, 'L');
+//    $pdf->SetXY(50, 230); //
+//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
+//    $pdf->SetXY(52, 230);
+//    $pdf->Cell(10, 5, $NumTelCons, 0, 0, 'L');
+    
     $pdf->SetXY(13, 220); //
-    $pdf->Cell(10, 5, utf8_decode('Domicilio'), 0, 0, 'L');
+    $pdf->Cell(10, 5, utf8_decode('Acta'), 0, 0, 'L');
     $pdf->SetXY(50, 220); //
     $pdf->Cell(10, 5, ':', 0, 0, 'L');
     $pdf->SetXY(52, 220); //
-    $pdf->Cell(10, 5, utf8_decode($CalleCons.' '.$NroDomCons.'-   Piso: '.$PisoDomCons.' Dto: '.$DptoDomCons), 0, 0, 'L');    
-    
-//    $pdf->SetXY(13, 225); //
-//    $pdf->Cell(10, 5, utf8_decode('Nro.'), 0, 0, 'L');
-//    $pdf->SetXY(50, 225); //
-//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
-//    $pdf->SetXY(52, 225); //
-//    $pdf->Cell(10, 5, $NroDomCons, 0, 0, 'L');
-//    
-//    
-//    $pdf->SetXY(13, 230); //
-//    $pdf->Cell(10, 5, utf8_decode('Piso'), 0, 0, 'L');
-//    $pdf->SetXY(50, 230); //
-//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
-//    $pdf->SetXY(137, 216); //
-//    $pdf->Cell(10, 5, $PisoDomCons, 0, 0, 'L');
-//    
-//    
-//    $pdf->SetXY(13, 235); //
-//    $pdf->Cell(10, 5, utf8_decode('Dto.'), 0, 0, 'L');
-//    $pdf->SetXY(50, 235); //
-//    $pdf->Cell(10, 5, ':', 0, 0, 'L');
-//    $pdf->SetXY(52, 235); //
-//    $pdf->Cell(10, 5, $DptoDomCons, 0, 0, 'L');
+    $pdf->Cell(10, 5, '*sin dato*', 0, 0, 'L');
     
     $pdf->SetXY(13, 225); //
-    $pdf->Cell(10, 5, utf8_decode('Tipo'), 0, 0, 'L');
+    $pdf->Cell(10, 5, utf8_decode('Folio'), 0, 0, 'L');
     $pdf->SetXY(50, 225); //
     $pdf->Cell(10, 5, ':', 0, 0, 'L');
-    $pdf->SetXY(52,225);
-    $pdf->Cell(10, 5, $TipoTelCons, 0, 0, 'L');
+    $pdf->SetXY(52, 225); //
+    $pdf->Cell(10, 5, $FolioCons, 0, 0, 'L');
     
     $pdf->SetXY(13, 230); //
-    $pdf->Cell(10, 5, utf8_decode('Telefono'), 0, 0, 'L');
+    $pdf->Cell(10, 5, utf8_decode('Libro'), 0, 0, 'L');
     $pdf->SetXY(50, 230); //
     $pdf->Cell(10, 5, ':', 0, 0, 'L');
-    $pdf->SetXY(52, 230);
-    $pdf->Cell(10, 5, $NumTelCons, 0, 0, 'L');
+    $pdf->SetXY(52, 230); //
+    $pdf->Cell(10, 5, $LibroCons, 0, 0, 'L');
     
     $pdf->SetXY(13, 235); //
-    $pdf->Cell(10, 5, utf8_decode('Acta'), 0, 0, 'L');
+    $pdf->Cell(10, 5, utf8_decode('Expediente'), 0, 0, 'L');
     $pdf->SetXY(50, 235); //
     $pdf->Cell(10, 5, ':', 0, 0, 'L');
     $pdf->SetXY(52, 235); //
-    $pdf->Cell(10, 5, '*sin dato*', 0, 0, 'L');
-    
-    $pdf->SetXY(13, 240); //
-    $pdf->Cell(10, 5, utf8_decode('Folio'), 0, 0, 'L');
-    $pdf->SetXY(50, 240); //
-    $pdf->Cell(10, 5, ':', 0, 0, 'L');
-    $pdf->SetXY(52, 240); //
-    $pdf->Cell(10, 5, $FolioCons, 0, 0, 'L');
-    
-    $pdf->SetXY(13, 245); //
-    $pdf->Cell(10, 5, utf8_decode('Libro'), 0, 0, 'L');
-    $pdf->SetXY(50, 245); //
-    $pdf->Cell(10, 5, ':', 0, 0, 'L');
-    $pdf->SetXY(52, 245); //
-    $pdf->Cell(10, 5, $LibroCons, 0, 0, 'L');
-    
-    $pdf->SetXY(13, 250); //
-    $pdf->Cell(10, 5, utf8_decode('Expediente'), 0, 0, 'L');
-    $pdf->SetXY(50, 250); //
-    $pdf->Cell(10, 5, ':', 0, 0, 'L');
-    $pdf->SetXY(52, 250); //
     $pdf->Cell(10, 5, '*sin dato*', 0, 0, 'L'); 
  
   

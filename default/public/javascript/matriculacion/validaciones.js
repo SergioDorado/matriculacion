@@ -368,3 +368,15 @@ function verfidocum(var1,var2,var3,var4,var5)
 	if(check1.checked && check2.checked && check3.checked && check2.checked){return true} else{ div1.style.display = "block"; return false}
 	
 }
+
+function FiltroProv()
+{
+	$.ajax({
+				url:"procesa.php",
+				type: "POST",
+				data:"NombProv="+$("#provi").val(),
+				success: function(opciones){
+					$("#persona_CuidadNac").html(opciones);
+				}
+			})
+}

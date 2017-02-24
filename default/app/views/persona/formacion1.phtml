@@ -31,7 +31,7 @@
                 
             <div class="form-group">
                 <div class="col-md-2">
-                    <?php $tipo = array(0=>'DNI',1=>'L.E.',2=>'L.C.');?>
+                    <?php $tipo = array(1=>'DNI',3=>'L.E.',2=>'L.C.',4=>'CI',5=>'DE',6=>'DNIF',7=>'DNIM');?>
                     <label>Tipo de documento</label>
                     <?php echo Form::select('documento.tipodoc',$tipo,'class="form-control"');?>
                 </div>
@@ -233,6 +233,10 @@
                   </div>
                   
                   <div class="form-group">
+                      <div class="col-md-4">
+                          <label>Fecha de Titulo</label>
+                          <?php echo Form::date('formacion.FechaTitulo','class="form-control" required')?>
+                      </div>
                       <div class="col-md-4">
                           <label>Fecha de Egreso</label>
                           <?php echo Form::date('formacion.FechaEgreso','class="form-control" required')?>

@@ -73,7 +73,7 @@
                 
                 
             <div class="form-group">
-                <div class="col-md-4">
+<!--                <div class="col-md-4">
                     <?php $provincias=array('Buenos Aires'=>'Buenos Aires','CABA'=>'CABA','Catamarca'=>'Catamarca','Chaco'=>'Chaco',
                         'Chaco'=>'Chaco','Córdoba'=>'Córdoba','Corrientes'=>'Corrientes','Entre Ríos'=>'Entre Ríos','Formosa'=>'Formosa',
                         'Jujuy'=>'Jujuy','La Pampa'=>'La Pampa','La Rioja'=>'La Rioja','Mendoza'=>'Mendoza','Misiones'=>'Misiones',
@@ -81,28 +81,31 @@
                         'Santa Cruz'=>'Santa Cruz','Santa Fe'=>'Santa Fe','Santiago del Estero'=>'Santiago del Estero','Tierra del Fuego'=>'Tierra del Fuego',
                         'Tucumán'=>'Tucumán') ?>
                     <label>Provincia</label>
-                    <?php echo Form::select('provi', $provincias, 'class="form-control"', '--Seleccione Provincia--')?>
-                </div>
+                    <?php //echo Form::select('provi', $provincias, 'class="form-control" ', '--Seleccione Provincia--')?>
+                </div>-->
                  <div class="col-md-4">
                     <label>Ciudad de nacimiento</label>
-                    <?php echo Form::dbSelect('persona.CuidadNac','Localidad',array('ciudad_nacimiento','ciudadord'),'--Seleccionar Ciudad de Nacimiento--','class="form-control" required')?>
+                    <?php echo Form::dbselect('persona.CuidadNac','Localidad',array('ciudad_nacimiento','ciudadord'),'--Seleccionar Ciudad de Nacimiento--','class="form-control"')?>
+<!--                    <select id="persona_CuidadNac" class="form-control" required>
+				<option value="0">--Seleccione Localidad--</option>
+                    </select>-->
                 </div>
                 <div class="col-md-4">
                     <label>Domicilio (calle)</label>
                     <?php echo Form::text('persona.DomCalle','class="form-control" placeholder="Nombre de la calle" style="text-transform:uppercase" required');?>
                 </div>
-<!--                <div class="col-md-1">
+                <div class="col-md-1">
                     <label>Nro</label>
-                    <?php// echo Form::text('persona.DomNro','class="form-control" placeholder="Numero" onkeypress="return valideKey(event)"')?>
+                    <?php echo Form::text('persona.DomNro','class="form-control" placeholder="Numero" onkeypress="return valideKey(event)"')?>
                 </div>
                 <div class="col-md-1">
                     <label>Piso</label>
-                    <?php// echo Form::text('persona.DomPiso','class="form-control" placeholder="Piso" onkeypress="return valideKey(event)"')?>
+                    <?php echo Form::text('persona.DomPiso','class="form-control" placeholder="Piso" onkeypress="return valideKey(event)"')?>
                 </div>
                 <div class="col-md-2">
                     <label>Dpto</label>
-                    <?php// echo Form::text('persona.DomDepto','class="form-control" placeholder="Departamento"');?>
-                </div>  -->
+                    <?php echo Form::text('persona.DomDepto','class="form-control" placeholder="Departamento"');?>
+                </div>  
             </div>
                 
                 

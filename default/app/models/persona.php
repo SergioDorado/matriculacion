@@ -22,11 +22,11 @@ class persona extends ActiveRecord
         
     }
     
-    public function GuardarForma($tipo,$prof,$titulo,$fecheg,$rev,$fecrev,$instrev,$profref,$instiform,$idpers,$profasoc,$orgreg)
+    public function GuardarForma($tipo,$prof,$titulo,$fecheg,$fechatit,$rev,$fecrev,$instrev,$profref,$instiform,$idpers,$profasoc,$orgreg)
     {
         Load::model('formacion');
         $form = new Formacion();
-        $form->Guardar($tipo, $prof, $titulo, $fecheg, $rev, $fecrev, $instrev, $profref,$instiform, $idpers, $profasoc, $orgreg);
+        $form->Guardar($tipo, $prof, $titulo, $fecheg,$fechatit, $rev, $fecrev, $instrev, $profref,$instiform, $idpers, $profasoc, $orgreg);
     }
     
     public function GuardarMatricula($nromat,$fecha,$situacion,$prov,$prof,$personaid,$codprof)
@@ -35,10 +35,16 @@ class persona extends ActiveRecord
         $matric = new Matriculacion();
         $matric->Guardar($nromat, $fecha, $situacion, $prov, $prof, $personaid, $codprof);
     }
-    public function buscar($dni)
+    public function buscar($dni)// busca una persona por dni
     {
         $pers = new persona();
         return ($pers->find_first("dni=$dni"));
+    }
+    
+    public function buscarid($id)// busca una parsona por id
+    {
+        $pers = new persona();
+        return ($pers->find_first("conditions: id=$id"));
     }
     
     public function Formatofeha($fecha)
@@ -84,4 +90,23 @@ class persona extends ActiveRecord
        $pers->update();
     }
     
+    public function procesa()
+    {
+        if(isset($_POST["NombProv"]))
+	{
+		$opciones = '<option value="0"> Elejir Localidad</option>';
+
+		$conexion= new mysqli("localhost","root","","bdmatriculacion");
+		$strConsulta = "select `id`, `Localidad` from `ciudad_nacimiento` where `Provincia` ='".$_POST["NombProv"]."'";
+		$result = $conexion->query($strConsulta);
+		
+
+		while( $fila = $result->fetch_array() )
+		{
+			$opciones.='<option value="'.$fila["id"].'">'.$fila["Localidad"].'</option>';
+		}
+
+		echo $opciones;
+	}
+    }
 }

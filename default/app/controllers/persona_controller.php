@@ -26,13 +26,13 @@ class PersonaController extends AppController
              * model.campo
              */
             $pesaux = new persona();
-            $persona = new persona(Input::post('persona'));
-            $docum = new documento(Input::post('documento'));
-            $telef = new telefono(Input::post('telefono'));
+            $persona = new persona(Input::post('persona'));  //pasamos los datos del formulario de datos personales al objeto persona
+            $docum = new documento(Input::post('documento')); //pasamos los datos del documetno del formularios de datos personales al objeto docum
+            $telef = new telefono(Input::post('telefono'));  // pasamos los datos del telefono del formulario de datos personales al objeto telef
             
             //En caso que falle la operación de guardar
             if($persona->create()){
-                $idpersona =  $pesaux->find_first("order: id desc")->id;
+                $idpersona =  $pesaux->find_first("order: id desc")->id; 
                 $persona->GuardarDoc($docum->tipodoc,$idpersona );
                 $persona->GuardarTels($idpersona, $telef->TieneTel, $telef->Tipo1, $telef->NumTel1, $telef->Tipo2, $telef->NumTel2, $telef->Tipo3, $telef->NumTel3, $telef->Tipo4, $telef->NumTel4);
                 Flash::valid('Carga de DATOS PERSONALES Exitosa');
@@ -50,18 +50,18 @@ class PersonaController extends AppController
     public function formacion1($id)
     {
         $persona = new persona();
-        $this->persona =$persona->find($id);
+        $this->persona =$persona->find($id); //Autocarga de los datos de persona
         
         $this->param1 = $id;
 
         if(Input::hasPost('formacion')){
             $forma = new Formacion(Input::post('formacion'));
             $profrefe = $forma->Referencia($forma->Profesion);
-            $persona->GuardarForma($forma->TipoFormacion,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso, $forma->Revalida,
+            $persona->GuardarForma($forma->TipoFormacion,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso,$forma->FechaTitulo, $forma->Revalida,
                     $forma->FechaRevalida, $forma->InstitucionRevalida, $profrefe,$forma->instform, $id,
                     $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
             Flash::valid('Carga de DATOS PROFESIONALES Exitosa');
-            $this->matricula1($id);
+            $this->matricula1($forma->find_first('order: id desc')->id);
             View::select('matricula1');
         }else{
             //Flash::error('Falló Operación');
@@ -70,17 +70,20 @@ class PersonaController extends AppController
     
     public function matricula1($id)
     {
-        $persona = new persona();
-        $this->persona =$persona->find($id);
-        $this->paramet2 = $id;
         $formacion = new Formacion();
-        $this->formacion = $formacion->find("conditions: persona_id=$id");
-        $nivel = $formacion->find_first("conditions: persona_id=$id")->TipoFormacion;
+        $this->formacion = $formacion->find_first("conditions: id=$id","order: id"); //Autocarga de los datos de formacion
+        $persona = new persona();
+        $persaux = new persona();
+        $this->persona =$persona->find_first("conditions: id=$formacion->persona_id"); //Autocarga de los datos de persona
+        $persaux = $persona->find_first("conditions: id=$formacion->persona_id");
+        $this->paramet2 = $id;
+        
+        $nivel = $formacion->find_first($id)->TipoFormacion;
         if(Input::hasPost('matriculacion'))
         {
             $doc = new documento();
-            $doc = Load::model('documento')->buscar($persona->id);
-            $codigoprof = ('54'.$doc->tipodoc.'0'.$persona->dni);
+            $doc = Load::model('documento')->buscar($persaux->id);
+            $codigoprof = ('54'.$doc->tipodoc.'0'.$persaux->dni);
             $matricula = new Matriculacion(Input::post('matriculacion'));
             $persona->GuardarMatricula($matricula->GenerarNro($nivel),$matricula->FechaMat,$matricula->Situacion,$matricula->Provincia
                     ,$matricula->Profesionmat,$id,$codigoprof);
@@ -157,9 +160,51 @@ class PersonaController extends AppController
         }
     }
     
-    public function pruebaajax()
+    public function procesa()
+    {
+        $pers = new persona();
+        $pers->procesa();
+        View::response('view');
+    }
+    
+    public function verificar2()
+    {
+        if(Input::hasPost('verificar2'))
+        {
+            $dni = Input::post('verificar2');
+            $persona= new persona();
+            if($persona->exists("dni=$dni"))
+            {
+               View::select('formacion1');
+               $this->formacion1(Load::model('persona')->find_first("conditions: dni=$dni")->id);                     
+            }
+            else{Flash::error('Persona no encontrada');} 
+        }
+    }
+
+    public function AltaFormacion($id)
+    {
+        $persona = new persona();
+        $this->persona =$persona->find($id); //Autocarga de los datos de persona
+        
+        $this->param1 = $id;
+
+        if(Input::hasPost('formacion')){
+            $forma = new Formacion(Input::post('formacion'));
+            $profrefe = $forma->Referencia($forma->Profesion);
+            $persona->GuardarForma($forma->TipoFormacion,$forma->Profesion,$forma->Titulo,$forma->FechaEgreso,$forma->FechaTitulo, $forma->Revalida,
+                    $forma->FechaRevalida, $forma->InstitucionRevalida, $profrefe,$forma->instform, $id,
+                    $forma->ProfesionalAsociado, $forma->OrganismoRegistro);
+            Flash::valid('Carga de DATOS PROFESIONALES Exitosa');
+            $this->matricula1($forma->find_first('order: id desc')->id);
+            View::select('matricula1');
+        }else{
+            //Flash::error('Falló Operación');
+        }
+    }
+    
+    public function pruebacamara()
     {
         
     }
-
 }

@@ -27,9 +27,33 @@
 <?php Form::close()?>
 <br>
 <br>
-<div style="text-align: center">
-<?php // $ex2 = new QRGenerator('Sergio Dorado',10); 
-//      echo "<img src=".$ex2->generate()." height='60' width='60'>"; ?>
+<div>
+    <label> Nombre:   <?php echo $nomb?></label> <br>
+    <label> Apellido: <?php echo $apell ?></label> <br>
+    <label> Dni:      <?php echo $docum ?></label>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr class="active">
+            <th>Nivel de formación</th>
+            <th>Profesión</th>
+            <th>Título</th>
+            <th>Institución Formadora</th>
+            <th>Seleccione</th>
+        </tr>
+        <?php foreach ($listaforma as $form): ?>
+        <tr class="warning">
+            <?php
+            echo "<td>".Load::model('formacion')->NivelFormacion($form->TipoFormacion)."</td>";
+            echo "<td>".Load::model('formacion')->NombReferencia($form->Profesion)."</td>";
+            //echo "<td>".$form->Profesion."</td>";
+            echo "<td>".$form->Titulo."</td>";
+            echo "<td>".  Load::model('formacion')->Institucion($form->instform)."</td>";
+            echo "<td>".Html::linkAction("GenerarConstancia/$form->id",'Seleccionar','target="blank"')."</td>";
+            ?>
+        </tr>
+        <?php endforeach;?>
+    </table>
 </div>
 <?php View::content()?>
 

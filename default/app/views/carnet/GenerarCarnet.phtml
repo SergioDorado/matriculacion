@@ -27,5 +27,9 @@
     $pdf->SetFont('Helvetica','',9);
     $pdf->SetXY(3,2);    //Nro de Matricula
     $pdf->Cell(15, 10, $NumMatCar,0, 0, 'L');
+    
+    //$pdf->Image('img\DorsoCarnet.png',85,0,85,55,'PNG');
+    
+    
     $pdf->Output();
 
